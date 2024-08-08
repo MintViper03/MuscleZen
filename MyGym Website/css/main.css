@@ -76,7 +76,7 @@
     letter-spacing: -1px;
     text-transform: capitalize;
     margin: 30px 0;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
   }
 
   h2 {
@@ -139,7 +139,7 @@
     letter-spacing: 0.5px;
     white-space: nowrap;
     transition: all 0.3s ease;
-    margin-bottom: -5px;
+    margin-bottom: 110px;
   }
 
   .custom-btn:hover {
@@ -194,6 +194,7 @@
     font-weight: normal;
     text-decoration: none;
     transition: all 0.3s ease;
+    margin-bottom: auto;
   }
 
   a:hover, 
