@@ -139,7 +139,7 @@
     letter-spacing: 0.5px;
     white-space: nowrap;
     transition: all 0.3s ease;
-    margin-bottom: 110px;
+    margin-bottom: 0px;
   }
 
   .custom-btn:hover {
