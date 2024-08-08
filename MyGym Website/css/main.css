@@ -76,7 +76,7 @@
     letter-spacing: -1px;
     text-transform: capitalize;
     margin: 30px 0;
-    margin-bottom: -10px;
+    margin-bottom: 150px;
   }
 
   h2 {
@@ -101,7 +101,7 @@
   }
 
   h6 {
-    color: var(--gray-color);
+    color: var(--white-color);
     font-size: var(--h6-font-size);
     line-height: inherit;
     margin-bottom: -5px;
