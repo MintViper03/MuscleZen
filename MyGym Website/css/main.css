@@ -262,6 +262,7 @@
     position: absolute;
     float: left;
     margin-left: -65px;
+    max-width: 90%;
   }
 
 
@@ -692,9 +693,10 @@
   border: none;
   border-radius: 2px;
   cursor: pointer;
-  position: relative;
+  position: absolute;
   overflow: hidden;
   transition: box-shadow 0.3s, transform 0.3s;
+  max-width: 90%;
 }
 
 .button::before {
@@ -740,5 +742,6 @@
 .butt{
   align-content: center;
   margin: 10px 515px;
+  max-width: 50%;
 
 }
