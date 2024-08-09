@@ -47,14 +47,9 @@
                     </li>
 
                     <li class="nav-item">
-                        <a href="#bmi" class="nav-link smoothScroll">Calculate-BMI</a>
-                    </li>
-
-                    <li class="nav-item">
                         <a href="#contact" class="nav-link smoothScroll">Contact</a>
                     </li>
                 </ul>
-
 
                 <ul class="social-icon ml-lg-3">
                     <li><a href="#" class="fa fa-facebook"></a></li>
@@ -193,103 +188,108 @@
                </div>
      </section>
 
-     <!-- BMI Caculator section -->
-
-     <section class="bmi-cal-section" >
-        <div class="card">
-            <div class="bg">
-                    <h1>BMI Calculator</h1>
-                    <form id="bmiForm">
-                    <label for="gender">Gender:</label>
-                    <div class="gender-options">
-                        <input type="radio" id="male" name="gender" value="male" required>
-                        <label for="male">Male</label>
-                        <input type="radio" id="female" name="gender" value="female" required>
-                        <label for="female">Female</label>
-                    </div>
-                    <label for="age">Age:</label>
-                    <input type="number" id="age" name="age" required>
-                    <label for="weight">Weight (kg):</label>
-                    <input type="number" id="weight" name="weight" required>
-                    <label for="height">Height (cm):</label>
-                    <input type="float" id="height" name="height" required>
-                    <button type="submit" class="btn1">
-                        <svg height="24" width="24" fill="#f13a11" viewBox="0 0 24 24" data-name="Layer 1" id="Layer_1" class="sparkle">
-                            <path d="M10,21.236,6.755,14.745.264,11.5,6.755,8.255,10,1.764l3.245,6.491L19.736,11.5l-6.491,3.245ZM18,21l1.5,3L21,21l3-1.5L21,18l-1.5-3L18,18l-3,1.5ZM19.333,4.667,20.5,7l1.167-2.333L24,3.5,21.667,2.333,20.5,0,19.333,2.333,17,3.5Z"></path>
-                        </svg>
-                        <span class="text">Calculate</span>
-                    </button>
-                    </form>
-                    <div id="bmiResult"></div>
-            </div>        
+    <!-- BMI Calculator section -->
+<section class="bmi-cal-section">
+    <div class="bmi-container">
+      <h1>BMI Calculator</h1>
+      <form id="bmiForm">
+        <label for="gender">Gender:</label>
+        <div class="gender-options">
+          <input type="radio" id="male" name="gender" value="male" required>
+          <label for="male">Male</label>
+          <input type="radio" id="female" name="gender" value="female" required>
+          <label for="female">Female</label>
         </div>
-    </section>
+        <label for="age">Age:</label>
+        <input type="number" id="age" name="age" required>
+        <label for="weight">Weight (kg):</label>
+        <input type="number" id="weight" name="weight" required>
+        <label for="height">Height (cm):</label>
+        <input type="number" id="height" name="height" required>
+        <button type="submit" class="btn1">
+          <svg height="24" width="24" fill="#f13a11" viewBox="0 0 24 24" data-name="Layer 1" id="Layer_1" class="sparkle">
+            <path d="M10,21.236,6.755,14.745.264,11.5,6.755,8.255,10,1.764l3.245,6.491L19.736,11.5l-6.491,3.245ZM18,21l1.5,3L21,21l3-1.5L21,18l-1.5-3L18,18l-3,1.5ZM19.333,4.667,20.5,7l1.167-2.333L24,3.5,21.667,2.333,20.5,0,19.333,2.333,17,3.5Z"></path>
+          </svg>
+          <span class="text">Calculate</span>
+        </button>
+      </form>
+      <div id="bmiResult"></div>
+    </div>
+  </section>
     
     
 
-     <!-- CLASS -->
-     <section class="class section" id="class">
-               <div class="container">
-                    <div class="row">
+<!-- CLASS -->
+<section class="class section" id="class">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-12 text-center mb-5">
+                <!-- <h6 data-aos="fade-up">Get A Perfect Body</h6> -->
+                <h2 data-aos="fade-up" data-aos-delay="200">Our Training Classes</h2>
+            </div>
 
-                            <div class="col-lg-12 col-12 text-center mb-5">
-                                <!-- <h6 data-aos="fade-up">Get A Perfect Body</h6> -->
-
-                                <h2 data-aos="fade-up" data-aos-delay="200">Our Training Classes</h2>
-                             </div>
-
-                            <div class="col-lg-4 col-md-6 col-12" data-aos="fade-up" data-aos-delay="400">
-                                <div class="class-thumb">
-                                    <img src="images/class/yoga-class.jpg" class="img-fluid" alt="Class">
-
-                                    <div class="class-info">
-                                        <h3 class="mb-1">Yoga</h3>
-
-                                        <span><strong>Trained by</strong> - Yoga Expert</span>
-
-                                        <span class="class-price">₹3500</span>
-
-                                        <p class="mt-3">Yoga is a light, which once lit will never dim</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="mt-5 mt-lg-0 mt-md-0 col-lg-4 col-md-6 col-12" data-aos="fade-up" data-aos-delay="500">
-                                <div class="class-thumb">
-                                    <img src="images/class/crossfit-class.jpg" class="img-fluid" alt="Class">
-
-                                    <div class="class-info">
-                                        <h3 class="mb-1">Aerobics</h3>
-
-                                        <span><strong>Trained by</strong> - Aerobics Trainer</span>
-
-                                        <span class="class-price">₹5000</span>
-
-                                        <p class="mt-3">True power of energy comes from Aerobics</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="mt-5 mt-lg-0 col-lg-4 col-md-6 col-12" data-aos="fade-up" data-aos-delay="600">
-                                <div class="class-thumb">
-                                    <img src="images/class/cardio-class.jpg" class="img-fluid" alt="Class">
-
-                                    <div class="class-info">
-                                        <h3 class="mb-1">Cardio</h3>
-
-                                        <span><strong>Trained by</strong> - Cardio Experts</span>
-
-                                        <span class="class-price">₹6000</span>
-
-                                        <p class="mt-3">Good things come to those who sweat....</p>
-                                    </div>
-                                </div>
-                            </div>
-
+            <div class="col-lg-4 col-md-6 col-12" data-aos="fade-up" data-aos-delay="400">
+                <div class="class-thumb">
+                    <img src="images/class/yoga-class.jpg" class="img-fluid" alt="Class">
+                    <div class="class-info">
+                        <h3 class="mb-1">Yoga</h3>
+                        <span><strong>Trained by</strong> - Yoga Expert</span>
+                        <span class="class-price">₹3500</span>
+                        <p class="mt-3">Yoga is a light, which once lit will never dim</p>
                     </div>
-               </div>
-                 
-     </section>
+                </div>
+            </div>
+
+            <div class="mt-5 mt-lg-0 mt-md-0 col-lg-4 col-md-6 col-12" data-aos="fade-up" data-aos-delay="500">
+                <div class="class-thumb">
+                    <img src="images/class/crossfit-class.jpg" class="img-fluid" alt="Class">
+                    <div class="class-info">
+                        <h3 class="mb-1">Aerobics</h3>
+                        <span><strong>Trained by</strong> - Aerobics Trainer</span>
+                        <span class="class-price">₹5000</span>
+                        <p class="mt-3">True power of energy comes from Aerobics</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-5 mt-lg-0 col-lg-4 col-md-6 col-12" data-aos="fade-up" data-aos-delay="600">
+                <div class="class-thumb">
+                    <img src="images/class/cardio-class.jpg" class="img-fluid" alt="Class">
+                    <div class="class-info">
+                        <h3 class="mb-1">Cardio</h3>
+                        <span><strong>Trained by</strong> - Cardio Experts</span>
+                        <span class="class-price">₹6000</span>
+                        <p class="mt-3">Good things come to those who sweat....</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-5 mt-lg-0 mt-md-0 col-lg-4 col-md-6 col-12" data-aos="fade-up" data-aos-delay="700">
+                <div class="class-thumb">
+                    <img src="images/class/powerlifting-class.jpg" class="img-fluid" alt="Class">
+                    <div class="class-info">
+                        <h3 class="mb-1">Power Lifting</h3>
+                        <span><strong>Trained by</strong> - Power Lifting Coach</span>
+                        <span class="class-price">₹7500</span>
+                        <p class="mt-3">Unleash your strength with our power lifting classes</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-5 mt-lg-0 mt-md-0 col-lg-4 col-md-6 col-12" data-aos="fade-up" data-aos-delay="800">
+                <div class="class-thumb">
+                    <img src="images/class/fitness-training-class.jpg" class="img-fluid" alt="Class">
+                    <div class="class-info">
+                        <h3 class="mb-1">Fitness Training</h3>
+                        <span><strong>Trained by</strong> - Fitness Trainer</span>
+                        <span class="class-price">₹8000</span>
+                        <p class="mt-3">Achieve your fitness goals with our expert trainers</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 
 
      <!-- SCHEDULE -->
@@ -415,6 +415,7 @@
                     </div>
                </div>
      </section>
+     
      
      <!-- CONTACT -->
      <section class="contact section" id="contact">

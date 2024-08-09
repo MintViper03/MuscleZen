@@ -788,25 +788,25 @@ Button "Become A member today" section
   padding: 3%;
 }
 
-/*bmi-container {
+.bmi-container {
   max-width: 550px;
   margin: 0 auto;
   padding: 30px;
   border: 1px solid #f13a11;
   border-radius: 8px;
   text-align: center;
-}*/
+}
 
 label {
   display: block;
-  margin: 10px 0 10px; /* Adjusted margin */
+  margin: 10px 0 10px;
 }
 
 .gender-options {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 10px; /* Space between radio buttons */
+  gap: 10px;
   margin-bottom: 10px;
 }
 
@@ -822,42 +822,21 @@ input[type="radio"] {
 }
 
 .btn1 {
-  color: var(--primary-color);
-  padding: 0.7em 1.7em;
   font-size: 18px;
-  border-radius: 0.5em;
-  background: white;
-  cursor: pointer;
-  border: 1px solid #e8e8e8;
-  transition: all 0.3s;
-  box-shadow: 6px 6px 12px #c5c5c5, -6px -6px 12px #ffffff;
-}
-
-.btn1:active {
-  color: #666;
-  box-shadow: inset 4px 4px 12px #c5c5c5, inset -4px -4px 12px #ffffff;
-
-  transition: all 0.3s ease-in-out;
-  font-family: "Dosis", sans-serif;
-  margin: auto;
-  width: 150px;
-  height: 50px;
-  border-radius: 8px;
-  background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  outline: none;
-  cursor: pointer;
+  font-weight: bold;
+  padding: 12px 24px;
   border: none;
-  font-size: 18px;
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  border-radius: 50px;
+  background: linear-gradient(135deg, #2575fc 0%, #6a11cb 100%);
+  color: #ffffff;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
 }
 
 .btn1:hover {
-  background: linear-gradient(135deg, #2575fc 0%, #6a11cb 100%);
-  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+  background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.25);
 }
 
 .btn1:active {
@@ -867,14 +846,14 @@ input[type="radio"] {
 
 .btn1 svg {
   margin-right: 8px;
+  font-size: 24px;
+  vertical-align: middle;
 }
 
 #bmiResult {
   margin-top: 15px;
 }
 
-
-/* BMI card */ 
 .card {
   position: relative;
   width: 500px;
@@ -887,7 +866,6 @@ input[type="radio"] {
   align-items: center;
   justify-content: center;
   box-shadow: 20px 20px 60px #bebebe, -20px -20px 60px #ffffff;
-  ;
 }
 
 .bg {
@@ -897,11 +875,9 @@ input[type="radio"] {
   width: 500px;
   height: 650px;
   z-index: 2;
-  background: rgba(255, 255, 255, .95);
+  background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(24px);
   border-radius: 10px;
   overflow: hidden;
   outline: 2px solid white;
 }
-
-
