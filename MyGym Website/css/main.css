@@ -168,7 +168,6 @@
     transition: ease-in-out 0.3s;
     font-weight: bolder;
     font-size: 16px;
-    border-radius: 5px;
   }
 
   .bg-color {
@@ -274,14 +273,13 @@
   .navbar {
     background: var(--dark-color);
     padding: 1rem;
-    max-width: 100%;
+    max-width: 90%;
     margin: 0 auto;
   }
 
   .navbar-expand-lg .navbar-nav .nav-link {
     padding-right: 1.5rem;
     padding-left: 1.5rem;
-    margin:auto
     
   }
 
@@ -686,17 +684,16 @@
     }
   }
 
-  /* From Uiverse.io by PriyanshuGupta28 */ 
 .button {
   display: inline-block;
-  padding: 20px 100px;
+  padding: 15px 100px;
   background-color: #f13a11;
   color: white;
   font-size: 18px;
   font-weight: bold;
   text-transform: uppercase;
   border: none;
-  border-radius: 5px;
+  border-radius: 2px;
   cursor: pointer;
   position: absolute;
   overflow: hidden;
@@ -705,6 +702,7 @@
 }
 
 .button::before {
+  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -720,13 +718,14 @@
 }
 
 .button::after {
+  content: "";
   position: absolute;
   top: -5px;
   left: -5px;
   width: calc(100% + 10px);
   height: calc(100% + 10px);
   border-radius: 15px;
-  border: 1px solid;
+  border: 1px solid #00b5ff;
   z-index: -1;
 }
 
@@ -753,8 +752,7 @@
 }
 
 .but{
-  padding: 20%;
-  display: inline;
+  padding-top: 5%;
   justify-content: left;
-  margin: 10px auto;
+  margin: auto 100px;
 }
