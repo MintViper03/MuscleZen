@@ -273,11 +273,15 @@
   .navbar {
     background: var(--dark-color);
     padding: 1rem;
+    max-width: 100%;
+    margin: 0 auto;
   }
 
   .navbar-expand-lg .navbar-nav .nav-link {
     padding-right: 1.5rem;
     padding-left: 1.5rem;
+    margin:auto
+    
   }
 
   .navbar-brand {
@@ -700,7 +704,6 @@
 }
 
 .button::before {
-  content: "";
   position: absolute;
   top: 0;
   left: 0;
@@ -716,14 +719,13 @@
 }
 
 .button::after {
-  content: "";
   position: absolute;
   top: -5px;
   left: -5px;
   width: calc(100% + 10px);
   height: calc(100% + 10px);
   border-radius: 15px;
-  border: 1px solid #00b5ff;
+  border: 1px solid;
   z-index: -1;
 }
 
@@ -739,9 +741,18 @@
   transform: scale(0.95);
 }
 
-.butt{
-  align-content: center;
-  margin: 10px 515px;
-  max-width: 50%;
+.butt {
+  display: flex;
+  justify-content: center; /* Center button horizontally */
+  align-items: center; /* Center button vertically */
+  max-width: 100%; /* Ensure the wrapper div is responsive */
+  margin: 0 auto; /* Center the wrapper div within its container */
+  padding: 40px; /* Add padding around the button */
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
 
+.but{
+  display:inline;
+  justify-content: left;
+  margin: 10px auto;
 }
