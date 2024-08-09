@@ -794,24 +794,32 @@ input[type="radio"] {
   font-family: "Dosis", sans-serif;
   margin: auto;
   width: 150px;
-  height: 60px;
-  border-radius: 50px;
-  background-image: linear-gradient(135deg, #feb692 0%, #ea5455 100%);
-  box-shadow: 0 20px 30px -6px rgba(238, 103, 97, 0.5);
+  height: 50px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   outline: none;
   cursor: pointer;
   border: none;
-  font-size: 24px;
+  font-size: 18px;
   color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .btn1:hover {
-  transform: translateY(3px);
-  box-shadow: none;
+  background: linear-gradient(135deg, #2575fc 0%, #6a11cb 100%);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
 }
 
 .btn1:active {
-  opacity: 0.5;
+  transform: scale(0.98);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.btn1 svg {
+  margin-right: 8px;
 }
 
 #bmiResult {
