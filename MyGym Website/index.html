@@ -455,6 +455,25 @@
           </div>
      </section>
 
+<!-- Chatbot container -->
+<div class="chatbot-container">
+    <!-- Chatbot header -->
+    <div class="chatbot-header">
+      <h2>Chatbot</h2>
+      <button class="chatbot-close">x</button>
+    </div>
+    <!-- Chatbot conversation area -->
+    <div class="chatbot-conversation">
+      <div class="chatbot-messages">
+        <!-- Messages will be displayed here -->
+      </div>
+      <!-- Chatbot input field -->
+      <input type="text" id="chatbot-input" placeholder="Type a message...">
+      <!-- Send button -->
+      <button id="chatbot-send">Send</button>
+    </div>
+  </div>
+
 
      <!-- FOOTER -->
      <footer class="site-footer">
@@ -573,6 +592,50 @@
             resultElement.innerHTML = `<h2>Your BMI is ${bmi.toFixed(2)}</h2><p>${interpretation}</p>`;
         });
     });
+</script>
+
+<script>
+    // Get the chatbot container and input field
+const chatbotContainer = document.querySelector('.chatbot-container');
+const chatbotInput = document.querySelector('#chatbot-input');
+const chatbotSend = document.querySelector('#chatbot-send');
+const chatbotMessages = document.querySelector('.chatbot-messages');
+const chatbotClose = document.querySelector('.chatbot-close');
+
+// Add an event listener to the send button
+chatbotSend.addEventListener('click', () => {
+  const userInput = chatbotInput.value.trim();
+  if (userInput !== '') {
+    // Add the user's message to the conversation
+    const userMessage = document.createElement('div');
+    userMessage.textContent = `You: ${userInput}`;
+    userMessage.className = 'user-message';
+    chatbotMessages.appendChild(userMessage);
+
+    // Get the chatbot's response
+    const response = respondToMessage(userInput);
+
+    // Add the chatbot's response to the conversation
+    const chatbotMessage = document.createElement('div');
+    chatbotMessage.textContent = `Chatbot: ${response}`;
+    chatbotMessage.className = 'chatbot-message';
+    chatbotMessages.appendChild(chatbotMessage);
+
+    // Clear the input field
+    chatbotInput.value = '';
+  }
+});
+
+// Add an event listener to the close button
+chatbotClose.addEventListener('click', () => {
+  chatbotContainer.style.display = 'none';
+});
+
+// Add an event listener to the window scroll event
+window.addEventListener('scroll', () => {
+  const scrollTop = window.scrollY;
+  chatbotContainer.style.top = `${scrollTop + 20}px`;
+});
 </script>
 
     
