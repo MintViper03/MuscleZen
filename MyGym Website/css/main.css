@@ -386,16 +386,48 @@ a:focus {
      CLASS               
   */
 
+.class {
+  padding: 7rem 0;
+}
+
+.class .section {
+  padding: 7rem 0;
+}
+
+.class .row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px;
+}
+
+.class .col-lg-4 {
+  position: relative;
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.class-thumb {
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+  margin-bottom: 30px;
+}
+
+.class-thumb img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 10px 10px 0 0;
+}
+
 .class-info {
   background: var(--white-color);
   box-shadow: 6px 0 38px rgba(20, 20, 20, 0.1);
   border-radius: 0 0 2px 2px;
   padding: 1rem 2rem;
   position: relative;
-}
-
-.class-info img {
-  border-radius: 2px 2px 0 0;
 }
 
 .class-info strong {
@@ -410,7 +442,7 @@ a:focus {
   display: block;
   position: absolute;
   top: 2rem;
-  right: 2rem;
+  right: 0rem;
   width: 3.5rem;
   height: 3.5rem;
   line-height: 3.5rem;
