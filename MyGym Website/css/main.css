@@ -168,6 +168,7 @@
     transition: ease-in-out 0.3s;
     font-weight: bolder;
     font-size: 16px;
+    border-radius: 5px;
   }
 
   .bg-color {
@@ -695,7 +696,7 @@
   font-weight: bold;
   text-transform: uppercase;
   border: none;
-  border-radius: 2px;
+  border-radius: 5px;
   cursor: pointer;
   position: absolute;
   overflow: hidden;
