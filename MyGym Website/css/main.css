@@ -266,7 +266,7 @@ a:focus {
 .navbar {
   background: var(--dark-color);
   padding: 1rem;
-  max-width: 90%;
+  max-width: 100%;
   margin: 0 auto;
 }
 
@@ -784,17 +784,39 @@ Button "Become A member today" section
 */
 
 .bmi-cal-section {
-  background-color: #f9f9f9;
-  padding: 3%;
+  background-color: var(--about-bg-color);
+  padding: 80px 0px;
 }
 
 .bmi-container {
-  max-width: 550px;
+  max-width: 30%;
   margin: 0 auto;
   padding: 30px;
-  border: 1px solid #f13a11;
-  border-radius: 8px;
+  border: 1px;
+  border-radius: 50px;
   text-align: center;
+  color: var(--); /* This line changes the text color to white */
+  background: lightgrey;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 50px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 26px -18px inset;
+}
+
+.bmi-container input[type="number"], 
+.bmi-container input[type="float"] {
+  width: calc(90% - 20px); /* Adjust width to fit within container */
+  padding: 10px; /* Add padding for better appearance */
+  margin: 5px 0; /* Space out input fields vertically */
+  border: 1px solid var(--dark-color); /* Light border color for inputs */
+  border-radius: 4px; /* Rounded corners for inputs */
+}
+
+.bmi-container input[type="radio"] {
+  margin-right: 5px; /* Space between radio button and label */
+}
+
+.bmi-container label {
+  display: block; /* Make labels block elements to align with inputs */
+  margin-top: 10px; /* Space above each label */
+  font-size: 20px; /* Font size for labels */
 }
 
 label {
@@ -821,53 +843,34 @@ input[type="radio"] {
   margin-right: 5px;
 }
 
-.btn1 {
+.bmi-container .btn1 {
+  margin-top: 10px;
+  padding: 1.3em 3em;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  font-weight: 500;
   color: var(--primary-color);
-  padding: 0.7em 1.7em;
-  font-size: 18px;
-  border-radius: 0.5em;
-  background: white;
-  cursor: pointer;
-  border: 1px solid #e8e8e8;
-  transition: all 0.3s;
-  box-shadow: 6px 6px 12px #c5c5c5, -6px -6px 12px #ffffff;
-}
-
-.btn1:active {
-  color: #666;
-  box-shadow: inset 4px 4px 12px #c5c5c5, inset -4px -4px 12px #ffffff;
-
-  transition: all 0.3s ease-in-out;
-  font-family: "Dosis", sans-serif;
-  margin: auto;
-  width: 150px;
-  height: 50px;
-  border-radius: 8px;
-  background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  outline: none;
-  cursor: pointer;
+  background-color: white;
   border: none;
-  font-size: 18px;
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  border-radius: 45px;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
+  outline: none;
 }
 
-.btn1:hover {
-  background: linear-gradient(135deg, #2575fc 0%, #6a11cb 100%);
-  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+.bmi-container .btn1:hover {
+  background-color: var(--primary-color);
+  box-shadow: 0px 15px 20px #fb633b;
+  color: #fff;
+  transform: translateY(-7px);
 }
 
-.btn1:active {
-  transform: scale(0.98);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+btn1:active {
+  transform: translateY(-1px);
 }
 
-.btn1 svg {
-  margin-right: 8px;
-}
 
 #bmiResult {
   margin-top: 15px;
