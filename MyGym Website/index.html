@@ -452,24 +452,23 @@
      </section>
 
 <!-- Chatbot container -->
-<div class="chatbot-container">
+<!-- <div class="chatbot-container"> -->
     <!-- Chatbot header -->
-    <div class="chatbot-header">
-      <h2>Chatbot</h2>
-      <button class="chatbot-close">x</button>
-    </div>
+   <!--  <div class="chatbot-header"> -->
+   <!--    <h2>Chatbot</h2>
+      <button class="chatbot-close">x</button> -->
+   <!--  </div> -->
     <!-- Chatbot conversation area -->
-    <div class="chatbot-conversation">
-      <div class="chatbot-messages">
+    <!-- <div class="chatbot-conversation">
+      <div class="chatbot-messages"> -->
         <!-- Messages will be displayed here -->
-      </div>
+     <!--  </div> -->
       <!-- Chatbot input field -->
-      <input type="text" id="chatbot-input" placeholder="Type a message...">
+     <!--  <input type="text" id="chatbot-input" placeholder="Type a message..."> -->
       <!-- Send button -->
-      <button id="chatbot-send">Send</button>
+      <!-- <button id="chatbot-send">Send</button>
     </div>
-  </div>
-
+  </div>   -->
 
      <!-- FOOTER -->
      <footer class="site-footer">
@@ -578,7 +577,7 @@
         });
     });
 </script>
-
+<!--
 <script>
     // Get the chatbot container and input field
 const chatbotContainer = document.querySelector('.chatbot-container');
@@ -621,7 +620,11 @@ window.addEventListener('scroll', () => {
   const scrollTop = window.scrollY;
   chatbotContainer.style.top = `${scrollTop + 20}px`;
 });
-</script>
+</script> -->
+
+<!-- chatbot script-->
+<script src="https://cdn.botpress.cloud/webchat/v2/inject.js"></script>
+<script src="https://mediafiles.botpress.cloud/615df474-1350-4fab-826c-c7212be2d984/webchat/v2/config.js"></script>
 
 </body>
 </html>

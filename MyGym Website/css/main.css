@@ -853,7 +853,7 @@ input[type="radio"] {
 #bmiResult {
   margin-top: 15px;
 }
-
+/* 
 .chatbot-container {
   position: fixed;
   bottom: 20px;
@@ -907,7 +907,7 @@ input[type="radio"] {
 
 .chatbot-send:hover {
   background-color: #444;
-}
+} */
 
 /* Small devices (tablets, 768px and up) */
 @media (min-width: 768px) {
