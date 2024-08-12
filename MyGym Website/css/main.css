@@ -789,8 +789,8 @@ Button "Become A member today" section
 }
 
 .bmi-container {
-  max-width: 30%;
-  margin: 0 auto;
+  max-width: 60%;
+  margin: auto auto;
   padding: 30px;
   border: 1px;
   border-radius: 50px;
@@ -798,6 +798,7 @@ Button "Become A member today" section
   color: var(--); /* This line changes the text color to white */
   background: lightgrey;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 50px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 26px -18px inset;
+  position: relative;
 }
 
 .bmi-container input[type="number"], 
@@ -843,53 +844,57 @@ input[type="radio"] {
   margin-right: 5px;
 }
 
+/* From Uiverse.io by cssbuttons-io */ 
 .btn1 {
-  color: var(--primary-color);
-  padding: 0.7em 1.7em;
-  font-size: 18px;
-  border-radius: 0.5em;
-  background: white;
+  --color: var(--primary-color);
+  font-family: inherit;
+  display: inline-block;
+  width: 8em;
+  height: 2.6em;
+  line-height: 2.5em;
+  margin: 20px;
+  position: relative;
   cursor: pointer;
-  border: 1px solid #e8e8e8;
-  transition: all 0.3s;
-  box-shadow: 6px 6px 12px #c5c5c5, -6px -6px 12px #ffffff;
+  overflow: hidden;
+  border: 2px solid var(--color);
+  transition: color 0.5s;
+  z-index: 1;
+  font-size: 17px;
+  border-radius: 6px;
+  font-weight: 500;
+  color: var(--color);
 }
 
-.btn1:active {
-  color: #666;
-  box-shadow: inset 4px 4px 12px #c5c5c5, inset -4px -4px 12px #ffffff;
-
-  transition: all 0.3s ease-in-out;
-  font-family: "Dosis", sans-serif;
-  margin: auto;
-  width: 150px;
-  height: 50px;
-  border-radius: 8px;
-  background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  outline: none;
-  cursor: pointer;
-  border: none;
-  font-size: 18px;
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+btn1:before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  background: var(--color);
+  height: 150px;
+  width: 200px;
+  border-radius: 50%;
 }
 
-.btn1:hover {
-  background: linear-gradient(135deg, #2575fc 0%, #6a11cb 100%);
-  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+btn1:hover {
+  color: #fff;
 }
 
-.btn1:active {
-  transform: scale(0.98);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+btn1:before {
+  top: 100%;
+  left: 100%;
+  transition: all 1s;
 }
 
-.btn1 svg {
-  margin-right: 8px;
+btn1:hover:before {
+  top: -30px;
+  left: -30px;
 }
+
+btn1:active:before {
+  background: var(--primary-color);
+  transition: background 0s;
+}
+
 
 
 #bmiResult {
