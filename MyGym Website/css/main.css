@@ -796,12 +796,13 @@ Button "Become A member today" section
   border-radius: 50px;
   text-align: center;
   color: white; /* This line changes the text color to white */
-  background: #F2F2F2;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 50px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 26px -18px inset;
+  background: #f2f2f2;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 50px -12px inset,
+    rgba(0, 0, 0, 0.3) 0px 18px 26px -18px inset;
   position: relative;
   text-shadow: 2px 2px 4px #404040; /* Added text shadow */
 }
-.bmi-container input[type="number"], 
+.bmi-container input[type="number"],
 .bmi-container input[type="float"] {
   width: calc(90% - 20px); /* Adjust width to fit within container */
   padding: 10px; /* Add padding for better appearance */
@@ -825,7 +826,6 @@ label {
   margin: 10px 0 10px;
 }
 
-
 input[type="number"],
 input[type="float"] {
   width: 100%;
@@ -842,7 +842,7 @@ input[type="float"] {
 .radio-input {
   display: flex;
   gap: 40px;
-  display:inline-flex;
+  display: inline-flex;
 }
 
 .radio-input .label {
@@ -859,20 +859,16 @@ input[type="float"] {
   border-radius: 100%;
   cursor: pointer;
   transition: 0.3s;
-  border: 3px solid transparent;
-  box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5),
-   -1px -1px 4px rgba(255, 255, 255, 0.5);
-   margin: 0px auto;
-   
+  border: 2px solid transparent;
+  box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5), -1px -1px 4px rgba(255, 0, 0, 0.5);
+  margin: 0px auto;
 }
 
 .radio-input .label input:checked + .check {
   box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5),
-   -1px -1px 4px rgba(255, 255, 255, 0.5),
-   inset 3px 3px 6px rgba(0, 0, 0, 0.5),
-   inset -1px -1px 4px rgba(255, 255, 255, 0.5);
+    -1px -1px 4px rgba(255, 255, 255, 0.5), inset 3px 3px 6px rgba(0, 0, 0, 0.5),
+    inset -1px -1px 4px rgba(255, 255, 255, 0.5);
   transform: scale(1.1);
-  
 }
 
 .input-wrapper input {
@@ -891,7 +887,7 @@ input[type="float"] {
   outline-color: var(--primary-color);
 }
 
-/* BMI CAlculate Button */ 
+/* BMI Calculate Button */
 .btn1 {
   --color: var(--primary-color);
   font-family: inherit;
@@ -941,7 +937,6 @@ input[type="float"] {
   background: var(--primary-color);
   transition: background 1s;
 }
-
 
 #bmiResult {
   margin-top: 15px;
