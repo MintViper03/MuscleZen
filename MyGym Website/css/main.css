@@ -424,9 +424,9 @@ a:focus {
 
 .class-info {
   background: var(--white-color);
-  box-shadow: 6px 0 38px rgba(20, 20, 20, 0.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.9); /* Added more subtle shadow */
   border-radius: 0 0 2px 2px;
-  padding: 1rem 2rem;
+  padding: 1rem 1rem;
   position: relative;
 }
 
@@ -447,8 +447,8 @@ a:focus {
   height: 3.5rem;
   line-height: 3.5rem;
   text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Adding drop shadow for .class-price */
 }
-
 /*
      SCHEDULE             
   */
@@ -790,17 +790,17 @@ Button "Become A member today" section
 
 .bmi-container {
   max-width: 60%;
-  margin: auto auto;
+  margin: auto;
   padding: 30px;
-  border: 1px;
+  border: 1px solid #ccc; /* Added border style */
   border-radius: 50px;
   text-align: center;
-  color: var(--); /* This line changes the text color to white */
+  color: white; /* This line changes the text color to white */
   background: #F2F2F2;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 50px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 26px -18px inset;
   position: relative;
+  text-shadow: 2px 2px 4px #404040; /* Added text shadow */
 }
-
 .bmi-container input[type="number"], 
 .bmi-container input[type="float"] {
   width: calc(90% - 20px); /* Adjust width to fit within container */
@@ -825,13 +825,6 @@ label {
   margin: 10px 0 10px;
 }
 
-.gender-options {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 10px;
-}
 
 input[type="number"],
 input[type="float"] {
@@ -840,11 +833,65 @@ input[type="float"] {
   margin-bottom: 10px;
 }
 
-input[type="radio"] {
-  margin-right: 5px;
+.radio-input .label input {
+  display: none;
+  margin: 0px auto;
+  align-items: center;
 }
 
-/* From Uiverse.io by cssbuttons-io */ 
+.radio-input {
+  display: flex;
+  gap: 40px;
+  display:inline-flex;
+}
+
+.radio-input .label {
+  display: flex;
+  align-items: center;
+}
+
+.radio-input .label .check {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100%;
+  cursor: pointer;
+  transition: 0.3s;
+  border: 3px solid transparent;
+  box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5),
+   -1px -1px 4px rgba(255, 255, 255, 0.5);
+   margin: 0px auto;
+   
+}
+
+.radio-input .label input:checked + .check {
+  box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5),
+   -1px -1px 4px rgba(255, 255, 255, 0.5),
+   inset 3px 3px 6px rgba(0, 0, 0, 0.5),
+   inset -1px -1px 4px rgba(255, 255, 255, 0.5);
+  transform: scale(1.1);
+  
+}
+
+.input-wrapper input {
+  background-color: #eee;
+  border: none;
+  padding: 1rem;
+  font-size: 1rem;
+  width: 13em;
+  border-radius: 1rem;
+  color: var(--primary-color);
+  box-shadow: 0 0.4rem #d3cdcd;
+  cursor: pointer;
+}
+
+.input-wrapper input:focus {
+  outline-color: var(--primary-color);
+}
+
+/* BMI CAlculate Button */ 
 .btn1 {
   --color: var(--primary-color);
   font-family: inherit;
@@ -865,7 +912,7 @@ input[type="radio"] {
   color: var(--color);
 }
 
-btn1:before {
+.btn1:before {
   content: "";
   position: absolute;
   z-index: -1;
@@ -875,31 +922,32 @@ btn1:before {
   border-radius: 50%;
 }
 
-btn1:hover {
+.btn1:hover {
   color: #fff;
 }
 
-btn1:before {
+.btn1:before {
   top: 100%;
   left: 100%;
-  transition: all 1s;
+  transition: all 0.7s;
 }
 
-btn1:hover:before {
+.btn1:hover:before {
   top: -30px;
   left: -30px;
 }
 
-btn1:active:before {
+.btn1:active:before {
   background: var(--primary-color);
-  transition: background 0s;
+  transition: background 1s;
 }
-
 
 
 #bmiResult {
   margin-top: 15px;
 }
+
+/*chatbot Section*/
 /* 
 .chatbot-container {
   position: fixed;
