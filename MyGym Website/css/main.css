@@ -283,8 +283,7 @@ a:focus {
   line-height: normal;
   padding-top: 0;
   display: flex;
-  margin: 0px  auto;
-  padding-left: 6%;
+  margin: 0px 60px;
 }
 
 .nav-item .nav-link {
