@@ -250,14 +250,13 @@ a:focus {
 }
 
 .logo {
-  display:inline-flex;
+  display:flex;
   height: 50px;
   width: 50px;
-  position: absolute;
+  position: relative;
   float: left;
-  margin-left: -55px;
-  max-width: 90%;
-  margin-top:8px;
+  max-width: 90%; 
+  margin: 0px auto;
 }
 
 /*
@@ -283,7 +282,7 @@ a:focus {
   line-height: normal;
   padding-top: 0;
   display: flex;
-  margin: 0px 60px;
+  margin: 0px auto;
   align-items: center;
 }
 
