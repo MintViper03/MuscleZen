@@ -250,7 +250,7 @@ a:focus {
 }
 
 .logo {
-  display:inline-flex;
+  display:flex;
   height: 50px;
   width: 50px;
   position: absolute;
@@ -284,6 +284,7 @@ a:focus {
   padding-top: 0;
   display: flex;
   margin: 0px  auto;
+  padding-left: 6%;
 }
 
 .nav-item .nav-link {
