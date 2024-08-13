@@ -250,14 +250,14 @@ a:focus {
 }
 
 .logo {
-  display:flex;
+  display:inline-flex;
   height: 50px;
   width: 50px;
   position: absolute;
   float: left;
   margin-left: -65px;
   max-width: 90%;
-  margin: 0px auto;
+  margin-top:8px;
 }
 
 /*
@@ -284,6 +284,7 @@ a:focus {
   padding-top: 0;
   display: flex;
   margin: 0px 60px;
+  align-items: center;
 }
 
 .nav-item .nav-link {
