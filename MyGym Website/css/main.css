@@ -250,10 +250,10 @@ a:focus {
 }
 
 .logo {
-  display:flex;
+  display: flex;
   height: 50px;
   width: 50px;
-  position: relative;
+  position:relative;
   float: left;
   max-width: 100%; 
   margin: 0px auto;
@@ -268,6 +268,7 @@ a:focus {
   padding: 1rem;
   max-width: 100%;
   margin: 0 auto;
+  align-items: center;
 }
 
 .navbar-expand-lg .navbar-nav .nav-link {
@@ -281,9 +282,10 @@ a:focus {
   font-weight: var(--font-weight-bold);
   line-height: normal;
   padding-top: 0;
-  display: flex;
-  margin: 0px auto;
-  align-items: center;
+  position: relative;
+  margin: auto;
+  margin-left: 10px;
+ 
 }
 
 .nav-item .nav-link {
