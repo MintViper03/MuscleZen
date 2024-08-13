@@ -255,7 +255,7 @@ a:focus {
   width: 50px;
   position: relative;
   float: left;
-  max-width: 90%; 
+  max-width: 100%; 
   margin: 0px auto;
 }
 
