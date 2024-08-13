@@ -216,6 +216,10 @@
                 <div class="input-wrapper">
                 <input type="number" placeholder="AGE" id="age" name="age" required>
                 <input type="number" placeholder="WEIGHT"id="weight" name="weight" required>
+                <select id="weightUnit">
+                  <option value="kg">Kilograms</option>
+                  <option value="lbs">Pounds</option>
+                </select>
                 <input type="float" placeholder="HEIGHT"id="height" name="height" required>
                 <button type="submit" class="btn1">Calculate</button>
             </form>
@@ -558,43 +562,78 @@
       event.preventDefault(); // Prevent the form from submitting the traditional way
   
       // Get the input values
-      var age = parseFloat(document.getElementById('age').value);
-      var weight = parseFloat(document.getElementById('weight').value);
-      var height = parseFloat(document.getElementById('height').value);
-      var gender = document.querySelector('input[name="radio"]:checked').value;
+      var ageInput = document.getElementById('age');
+      var weightInput = document.getElementById('weight');
+      var heightInput = document.getElementById('height');
+      var weightUnitInput = document.getElementById('weightUnit');
+      var genderInputs = document.getElementsByName('radio');
+      var selectedGender;
+  
+      // Check if a radio button is selected
+      for (var i = 0; i < genderInputs.length; i++) {
+          if (genderInputs[i].checked) {
+              selectedGender = genderInputs[i].value;
+              break;
+          }
+      }
+  
+      if (!selectedGender) {
+          document.getElementById('bmiResult').innerText = 'Please select a gender.';
+          return;
+      }
+  
+      // Get the input values
+      var age = parseFloat(ageInput.value);
+      var weight = parseFloat(weightInput.value);
+      var heightFeet = parseFloat(heightInput.value.split("'")[0]);
+      var heightInches = parseFloat(heightInput.value.split("'")[1]);
+      var weightUnit = weightUnitInput.value;
   
       // Validate inputs
-      if (isNaN(age) || isNaN(weight) || isNaN(height) || age <= 0 || weight <= 0 || height <= 0) {
+      if (isNaN(age) || isNaN(weight) || isNaN(heightFeet) || isNaN(heightInches) || age <= 0 || weight <= 0 || heightFeet <= 0 || heightInches < 0) {
           document.getElementById('bmiResult').innerText = 'Please enter valid values.';
           return;
       }
   
-      // Convert height from cm to meters
-      height = height / 100;
-  
-      // Calculate BMI
-      var bmi = weight / (height * height);
-  
-      // Prepare result text
-      var resultText = 'Your BMI is ' + bmi.toFixed(2) + '.';
-  
-      // Interpret the result
-      if (bmi < 18.5) {
-          resultText += ' You are underweight.';
-      } else if (bmi >= 18.5 && bmi < 24.9) {
-          resultText += ' You have a normal weight.';
-      } else if (bmi >= 25 && bmi < 29.9) {
-          resultText += ' You are overweight.';
-      } else {
-          resultText += ' You are obese.';
+      // Check for empty strings
+      if (ageInput.value.trim() === '' || weightInput.value.trim() === '' || heightInput.value.trim() === '') {
+          document.getElementById('bmiResult').innerText = 'Please enter all values.';
+          return;
       }
   
-      // Include gender in the result message
-      resultText += ' Gender: ' + (gender === 'male' ? 'Men' : 'Women') + '.';
+      // Convert height from feet and inches to centimeters
+      var heightInchesTotal = heightFeet * 12 + heightInches;
+      var heightCm = heightInchesTotal * 2.54;
   
-      document.getElementById('bmiResult').innerText = resultText;
-  });
-  </script>
+      // Convert weight to kilograms if necessary
+      if (weightUnit === 'lbs') {
+          weight = weight / 2.205; // convert pounds to kilograms
+      }
+  
+      // Convert height from cm to meters
+      var heightM = heightCm / 100;
+  
+      // Calculate BMI
+      var bmi = weight / (heightM * heightM);
+// Prepare result text
+var resultText = 'You are ' + age + ' years old. Your BMI is ' + bmi.toFixed(2) + '.';
+
+// Interpret the result
+if (bmi < 18.5) {
+    resultText += ' You are underweight.';
+} else if (bmi >= 18.5 && bmi < 25) {
+    resultText += ' You have a normal weight.';
+} else if (bmi >= 25 && bmi < 30) {
+    resultText += ' You are overweight.';
+} else {
+    resultText += ' You are obese.';
+}
+
+// Include gender in the result message
+resultText += ' Gender: ' + (selectedGender === 'male' ? 'Men' : 'Women') + '.';
+
+document.getElementById('bmiResult').innerText = resultText; });
+</script>
 <!--
 <script>
     // Get the chatbot container and input field
