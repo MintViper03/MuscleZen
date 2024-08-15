@@ -253,9 +253,9 @@ a:focus {
   display: flex;
   height: 50px;
   width: 50px;
-  position:relative;
+  position: relative;
   float: left;
-  max-width: 90%; 
+  max-width: 90%;
   margin: 0px auto;
   right: 5px;
 }
@@ -266,15 +266,11 @@ a:focus {
 
 .navbar {
   background: var(--dark-color);
-  padding: 1rem;
+  padding: 2rem;
   max-width: 100%;
-  margin: 0 auto;
+  margin: auto auto;
   align-items: center;
-}
-
-.navbar-expand-lg .navbar-nav .nav-link {
-  padding-right: 1.5rem;
-  padding-left: 1.5rem;
+  justify-content: space-between;
 }
 
 .navbar-brand {
@@ -286,7 +282,10 @@ a:focus {
   position: relative;
   margin: auto;
   margin-left: 10px;
- 
+}
+
+.nav-item {
+  margin-right: 0px;
 }
 
 .nav-item .nav-link {
@@ -296,15 +295,12 @@ a:focus {
   font-weight: var(--font-weight-normal);
   text-transform: uppercase;
   padding: 2px 6px;
+  transition: color 0.3s ease;
 }
 
 .nav-item .nav-link.active,
 .nav-item .nav-link:hover {
   color: var(--primary-color);
-}
-
-.navbar .social-icon li a {
-  color: var(--white-color);
 }
 
 .navbar-toggler {
@@ -803,12 +799,13 @@ Button "Become A member today" section
   border-radius: 50px;
   text-align: center;
   color: rgb(0, 0, 0); /* This line changes the text color to white */
-  background: #F2F2F2;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 50px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 26px -18px inset;
+  background: #f2f2f2;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 50px -12px inset,
+    rgba(0, 0, 0, 0.3) 0px 18px 26px -18px inset;
   position: relative;
   text-shadow: 2px 2px 4px #404040; /* Added text shadow */
 }
-.bmi-container input[type="number"], 
+.bmi-container input[type="number"],
 .bmi-container input[type="float"] {
   width: calc(90% - 20px); /* Adjust width to fit within container */
   padding: 10px; /* Add padding for better appearance */
@@ -832,7 +829,6 @@ label {
   margin: 10px 0 10px;
 }
 
-
 input[type="number"],
 input[type="float"] {
   width: 100%;
@@ -849,7 +845,7 @@ input[type="float"] {
 .radio-input {
   display: flex;
   gap: 40px;
-  display:inline-flex;
+  display: inline-flex;
 }
 
 .radio-input .label {
@@ -868,18 +864,15 @@ input[type="float"] {
   transition: 0.3s;
   border: 3px solid transparent;
   box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5),
-   -1px -1px 4px rgba(255, 255, 255, 0.5);
-   margin: 0px auto;
-   
+    -1px -1px 4px rgba(255, 255, 255, 0.5);
+  margin: 0px auto;
 }
 
 .radio-input .label input:checked + .check {
   box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5),
-   -1px -1px 4px rgba(255, 255, 255, 0.5),
-   inset 3px 3px 6px rgba(0, 0, 0, 0.5),
-   inset -1px -1px 4px rgba(255, 255, 255, 0.5);
+    -1px -1px 4px rgba(255, 255, 255, 0.5), inset 3px 3px 6px rgba(0, 0, 0, 0.5),
+    inset -1px -1px 4px rgba(255, 255, 255, 0.5);
   transform: scale(1.1);
-  
 }
 
 .input-wrapper input {
@@ -898,7 +891,7 @@ input[type="float"] {
   outline-color: var(--primary-color);
 }
 
-/* BMI CAlculate Button */ 
+/* BMI CAlculate Button */
 .btn1 {
   --color: var(--primary-color);
   font-family: inherit;
@@ -948,7 +941,6 @@ input[type="float"] {
   background: var(--primary-color);
   transition: background 1s;
 }
-
 
 #bmiResult {
   margin-top: 15px;
@@ -1041,5 +1033,104 @@ input[type="float"] {
   .navbar-expand-lg .navbar-nav .nav-link {
     padding-right: 1.5rem;
     padding-left: 1.5rem;
+  }
+}
+
+/* Login and Signup Pages */
+
+.login-container,
+.signup-container {
+  width: 400px;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: #f7f7f7;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.login-header,
+.signup-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.login-header h2,
+.signup-header h2 {
+  font-weight: bold;
+  color: var(--primary-color);
+}
+
+.login-form,
+.signup-form {
+  margin-top: 20px;
+}
+
+.login-form label,
+.signup-form label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.login-form input[type="email"],
+.login-form input[type="password"],
+.signup-form input[type="text"],
+.signup-form input[type="email"],
+.signup-form input[type="password"] {
+  width: 100%;
+  height: 40px;
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.login-form input[type="submit"],
+.signup-form input[type="submit"] {
+  width: 100%;
+  height: 40px;
+  background-color: var(--primary-color);
+  color: #fff;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.login-form input[type="submit"]:hover,
+.signup-form input[type="submit"]:hover {
+  background-color: #333;
+}
+
+.login-link,
+.signup-link {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.login-link a,
+.signup-link a {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+.login-link a:hover,
+.signup-link a:hover {
+  color: #333;
+}
+
+/* Responsive Design */
+
+@media (max-width: 768px) {
+  .login-container,
+  .signup-container {
+    width: 300px;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-container,
+  .signup-container {
+    width: 250px;
   }
 }

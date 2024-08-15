@@ -17,56 +17,56 @@
     <link rel="stylesheet" href="css/main.css">
 </head>
 <body dat-spy="scroll" data-target="#navbarNav" data-offset="50">
-    <!-- MENU BAR -->
-    <nav class="navbar navbar-expand-lg fixed-top">
-        <div class="container">
-          <div class="logo"><img align="left" src="images/Fitness logo.png" ></div>
-            <a class="navbar-brand" href="index.html">MuscleZen</a>
-            
-            
-
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ml-lg-auto">
-                    <li class="nav-item">
-                        <a href="#home" class="nav-link smoothScroll">Home</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="#about" class="nav-link smoothScroll">About Us</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="#class" class="nav-link smoothScroll">Classes</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="#schedule" class="nav-link smoothScroll">Schedules</a>
-                    </li>
-
-                    <li class="nav-item">
-                      <a href="#bmical" class="nav-link smoothScroll">BMI</a>
-                  </li>
-
-                    <li class="nav-item">
-                        <a href="#contact" class="nav-link smoothScroll">Contact</a>
-                    </li>
-                </ul>
-
-                <ul class="social-icon ml-lg-3">
-                    <li><a href="#" class="fa fa-facebook"></a></li>
-                    <li><a href="" class="fa fa-twitter"></a></li>
-                    <li><a href="" class="fa fa-instagram"></a></li>
-                </ul>
-            </div>
-
-        </div>
-    </nav>
-    <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"></button>
+  
+<!-- MENU BAR -->
+<nav class="navbar navbar-expand-lg fixed-top">
+  <div class="container">
+      <div class="logo"><img align="left" src="images/Fitness logo.png" ></div>
+      <a class="navbar-brand" href="index.html">MuscleZen</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ml-lg-auto">
+              <li class="nav-item">
+                  <a href="#home" class="nav-link smoothScroll">Home</a>
+              </li>
+              <li class="nav-item">
+                  <a href="#about" class="nav-link smoothScroll">About Us</a>
+              </li>
+              <li class="nav-item">
+                  <a href="#class" class="nav-link smoothScroll">Classes</a>
+              </li>
+              <li class="nav-item">
+                  <a href="#schedule" class="nav-link smoothScroll">Schedules</a>
+              </li>
+              <li class="nav-item">
+                <a href="#bmical" class="nav-link smoothScroll">BMI</a>
+              </li>
+              <li class="nav-item">
+                  <a href="#contact" class="nav-link smoothScroll">Contact</a>
+              </li>
+          </ul>
+          <ul class="navbar-nav ml-auto">
+              <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Account
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <a class="dropdown-item" href="login.html">Login</a>
+                      <a class="dropdown-item" href="signup.html">Sign up</a>
+                  </div>
+              </li>
+          </ul>
+          <ul class="social-icon ml-lg-3">
+              <li><a href="#" class="fa fa-facebook"></a></li>
+              <li><a href="" class="fa fa-twitter"></a></li>
+              <li><a href="" class="fa fa-instagram"></a></li>
+          </ul>
+      </div>
+  </div>
+</nav>
+<button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"></button>
 
      <!-- HERO -->
      <section class="hero d-flex flex-column justify-content-center align-items-center" id="home">
@@ -682,6 +682,18 @@ window.addEventListener('scroll', () => {
 <!-- chatbot script-->
 <script src="https://cdn.botpress.cloud/webchat/v2/inject.js"></script>
 <script src="https://mediafiles.botpress.cloud/615df474-1350-4fab-826c-c7212be2d984/webchat/v2/config.js"></script>
+
+<script>
+  // login.js
+const apiUrl = 'https://your-api-url.com/api';
+
+document.addEventListener('DOMContentLoaded', () => {
+  const loginForm = document.querySelector('#login-form');
+  loginForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const email = document.querySelector('#email').value;
+    const
+</script>
 
 </body>
 </html>
