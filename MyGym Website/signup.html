@@ -1,60 +1,59 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sign up | MuscleZen</title>
-    <link rel="stylesheet" href="css/account.css" />
-    <link rel="stylesheet" href="css/bootstrap.min.css" />
-    <link rel="stylesheet" href="css/font-awesome.min.css" />
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="css/signup.css" />
   </head>
   <body>
     <div class="container">
-      <div class="row">
-        <div class="col-lg-4 col-md-6 col-12 mx-auto">
-          <div class="signup-form">
-            <h2 class="text-center">Sign up</h2>
-            <form action="#" method="post">
-              <div class="form-group">
-                <label for="name">Name</label>
-                <input type="text" id="name" class="form-control" required />
-              </div>
-              <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" class="form-control" required />
-              </div>
-              <div class="form-group">
-                <label for="password">Password</label>
-                <input
-                  type="password"
-                  id="password"
-                  class="form-control"
-                  required
-                />
-              </div>
-              <div class="form-group">
-                <label for="confirm-password">Confirm Password</label>
-                <input
-                  type="password"
-                  id="confirm-password"
-                  class="form-control"
-                  required
-                />
-              </div>
-              <button type="submit" class="btn btn-primary btn-block">
-                Sign up
-              </button>
-              <p class="text-center">
-                Already have an account? <a href="login.html">Login</a>
-              </p>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
+      <div class="header">
+        <img
+          src="images/Fitness logo.png"
+          alt="MuscleZen Logo"
+          class="img-fluid"
+          style="width: 100px; height: auto"
+        />
+      <h1>Sign Up</h1>
 
-    <script src="js/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/custom.js"></script>
+      <form>
+        <div class="form-group">
+          <label for="username">Username:</label>
+          <input type="text" id="username" name="username" required />
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" required />
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password:</label>
+          <input type="password" id="password" name="password" required />
+        </div>
+
+        <div class="form-group">
+          <label for="confirm-password">Confirm Password:</label>
+          <input
+            type="password"
+            id="confirm-password"
+            name="confirm-password"
+            required
+          />
+        </div>
+
+        <div class="checkbox-label">
+          <input type="checkbox" id="terms" name="terms" required />
+          <label for="terms"
+            >I agree to the <a href="#">Terms of Service</a></label
+          >
+        </div>
+
+        <button type="submit">Sign Up</button>
+
+        <div class="terms">
+          Already have an account? <a href="login.html">Sign In</a>
+        </div>
+      </form>
+    </div>
   </body>
 </html>
