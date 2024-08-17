@@ -615,24 +615,23 @@
   
       // Calculate BMI
       var bmi = weight / (heightM * heightM);
-// Prepare result text
-var resultText = 'You are ' + age + ' years old. Your BMI is ' + bmi.toFixed(2) + '.';
+  
+      // Prepare result text
+      var resultText = 'You are ' + age + ' years old, Your BMI is ' + bmi.toFixed(2) + ',';
 
-// Interpret the result
-if (bmi < 18.5) {
-    resultText += ' You are underweight.';
-} else if (bmi >= 18.5 && bmi < 25) {
-    resultText += ' You have a normal weight.';
-} else if (bmi >= 25 && bmi < 30) {
-    resultText += ' You are overweight.';
-} else {
-    resultText += ' You are obese.';
-}
+      // Interpret the result
+      if (bmi < 18.5) {
+          resultText += ' You are underweight.';
+      } else if (bmi >= 18.5 && bmi < 25) {
+          resultText += ' You have a normal weight.';
+      } else if (bmi >= 25 && bmi < 30) {
+          resultText += ' You are overweight.';
+      } else {
+          resultText += ' You are obese.';
+      }
 
-// Include gender in the result message
-resultText += ' Gender: ' + (selectedGender === 'male' ? 'Men' : 'Women') + '.';
-
-document.getElementById('bmiResult').innerText = resultText; });
+      document.getElementById('bmiResult').innerText = resultText;
+  });
 </script>
 <!--
 <script>
