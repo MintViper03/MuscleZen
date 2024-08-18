@@ -16,11 +16,12 @@ body {
   transform: translate(-50%, -50%);
   width: 450px;
   box-sizing: border-box;
-  padding: 100px;
+  padding: 100px 0; /* Vertical centering */
   border: 1px solid #ccc;
   box-shadow: 0 5px 50px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   background: #ffffff;
+  text-align: center; /* Center the text horizontally */
 }
 
 .logo {
@@ -59,20 +60,23 @@ form {
 
 label {
   display: block;
-  margin-bottom: 20px;
+  margin-top: 40px;
+  margin-bottom: 10px;
   font-weight: bold;
   color: #333;
+  text-align: left;
+  margin-left: 35px;
 }
 
 input[type="email"] {
-  width: 100%;
+  width: 80%;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
 }
 
 button[type="submit"] {
-  width: 100%; /* Make button take full width */
+  width: 90%; /* Make button take full width */
   padding: 10px;
   background-color: #007bff;
   color: #fff;
@@ -90,6 +94,12 @@ p {
   font-size: 14px;
   color: #666;
   text-align: center; /* Center the text */
+}
+
+.center p {
+  line-height: 1.5;
+  display: inline-block;
+  vertical-align: middle;
 }
 
 a {
