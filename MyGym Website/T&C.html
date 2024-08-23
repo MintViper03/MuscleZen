@@ -72,18 +72,43 @@
       <p>&copy; 2024 MuscleZen. All rights reserved.</p>
     </footer>
     <script>
-      // Add an event listener to the page to detect when the user scrolls to the bottom
-      document.addEventListener("scroll", function () {
-        if (window.scrollY + window.innerHeight >= document.body.offsetHeight) {
-          // Add a "Back to top" button when the user reaches the bottom of the page
-          var backButton = document.createElement("button");
-          backButton.textContent = "Back to top";
-          backButton.onclick = function () {
-            window.scrollTo(0, 0);
-          };
-          document.body.appendChild(backButton);
+      // Create and style the "Back to top" button
+      var backButton = document.createElement("button");
+      backButton.textContent = "Back to top";
+      backButton.style.position = "fixed";
+      backButton.style.bottom = "20px";
+      backButton.style.right = "20px";
+      backButton.style.display = "none"; // Initially hidden
+      backButton.style.padding = "10px 20px";
+      backButton.style.backgroundColor = "#007bff";
+      backButton.style.color = "#fff";
+      backButton.style.border = "none";
+      backButton.style.borderRadius = "5px";
+      backButton.style.cursor = "pointer";
+      backButton.style.zIndex = "1000"; // Make sure it is above other content
+
+      // Function to show or hide the button based on scroll position
+      function toggleBackButton() {
+        if (
+          window.scrollY + window.innerHeight >=
+          document.body.offsetHeight - 100
+        ) {
+          backButton.style.display = "block";
+        } else {
+          backButton.style.display = "none";
         }
+      }
+
+      // Add event listener to the window object
+      window.addEventListener("scroll", toggleBackButton);
+
+      // Add click event to scroll back to top
+      backButton.addEventListener("click", function () {
+        window.scrollTo({ top: 0, behavior: "smooth" });
       });
+
+      // Append button to the body
+      document.body.appendChild(backButton);
     </script>
   </body>
 </html>
