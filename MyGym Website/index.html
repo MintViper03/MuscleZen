@@ -684,14 +684,41 @@ window.addEventListener('scroll', () => {
 
 <script>
   // login.js
-const apiUrl = 'https://your-api-url.com/api';
+  const apiUrl = 'https://your-api-url.com/api';
 
-document.addEventListener('DOMContentLoaded', () => {
-  const loginForm = document.querySelector('#login-form');
-  loginForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const email = document.querySelector('#email').value;
-    const
+  document.addEventListener('DOMContentLoaded', () => {
+    const loginForm = document.querySelector('#login-form');
+    
+    loginForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const email = document.querySelector('#email').value;
+      const password = document.querySelector('#password').value; // Assuming there's a password field
+      
+      try {
+        const response = await fetch(`${apiUrl}/login`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email, password }),
+        });
+        
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        
+        const data = await response.json();
+        
+        // Handle the response data (e.g., show a success message, redirect, etc.)
+        console.log('Success:', data);
+      } catch (error) {
+        // Handle errors (e.g., show an error message)
+        console.error('Error:', error);
+      }
+    });
+  });
+  
 </script>
 
 </body>
