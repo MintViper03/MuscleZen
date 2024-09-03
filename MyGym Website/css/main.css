@@ -792,26 +792,27 @@ Button "Become A member today" section
 }
 
 .bmi-container {
-  max-width: 60%;
+  max-width: 100%;
   margin: auto;
   padding: 30px;
   border: 1px solid #ccc; /* Added border style */
-  border-radius: 50px;
   text-align: center;
-  color: rgb(0, 0, 0); /* This line changes the text color to white */
+  font-family: inherit;
+  color: r; /* This line changes the text color to white */
   background: #f2f2f2;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 50px -12px inset,
-    rgba(0, 0, 0, 0.3) 0px 18px 26px -18px inset;
+  /*box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 50px -12px inset,
+    rgba(0, 0, 0, 0.3) 0px 18px 26px -18px inset;*/
   position: relative;
-  text-shadow: 2px 2px 4px #404040; /* Added text shadow */
+  /*t ext-shadow: 2px 2px 4px #404040; /* Added text shadow */
 }
 .bmi-container input[type="number"],
 .bmi-container input[type="float"] {
-  width: calc(90% - 20px); /* Adjust width to fit within container */
+  width: 50%;
+  max-width: auto; /* Adjust width to fit within container */
   padding: 10px; /* Add padding for better appearance */
   margin: 5px 0; /* Space out input fields vertically */
   border: 1px solid var(--dark-color); /* Light border color for inputs */
-  border-radius: 4px; /* Rounded corners for inputs */
+  border-radius: 3px; /* Rounded corners for inputs */
 }
 
 .bmi-container input[type="radio"] {
@@ -866,13 +867,15 @@ input[type="float"] {
   box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5),
     -1px -1px 4px rgba(255, 255, 255, 0.5);
   margin: 0px auto;
+  max-width: 0% auto;
 }
 
 .radio-input .label input:checked + .check {
-  box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5),
-    -1px -1px 4px rgba(255, 255, 255, 0.5), inset 3px 3px 6px rgba(0, 0, 0, 0.5),
-    inset -1px -1px 4px rgba(255, 255, 255, 0.5);
   transform: scale(1.1);
+  border-color: white;
+  background-color: #f03a11;
+  box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5),
+    -1px -1px 4px rgba(255, 255, 255, 0.5);
 }
 
 .input-wrapper input {
@@ -895,11 +898,10 @@ input[type="float"] {
 .btn1 {
   --color: var(--primary-color);
   font-family: inherit;
-  display: inline-block;
+  display:table;
   width: 8em;
   height: 2.6em;
   line-height: 2.5em;
-  margin: 20px;
   position: relative;
   cursor: pointer;
   overflow: hidden;
@@ -910,7 +912,7 @@ input[type="float"] {
   border-radius: 6px;
   font-weight: 500;
   color: var(--color);
-}
+  margin-left: 46%;
 
 .btn1:before {
   content: "";
@@ -942,9 +944,17 @@ input[type="float"] {
   transition: background 1s;
 }
 
+.weightUnit{
+  margin: 20px;
+  padding: 20%;
+
+}
+
 #bmiResult {
   margin-top: 15px;
 }
+
+
 
 /*chatbot Section*/
 /* 

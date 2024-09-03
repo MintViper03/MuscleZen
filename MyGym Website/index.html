@@ -204,23 +204,25 @@
                 <div class="radio-input">
                   <label class="label">
                   Men &nbsp&nbsp
-                    <input type="radio" name="radio" value="male" checked>
+                    <input type="radio" name="radio" value="male" required>
                     <span class="check"></span>
                   </label>
                   <label class="label">
                   Women &nbsp&nbsp
-                    <input type="radio" name="radio" value="female" >
+                    <input type="radio" name="radio" value="female" required>
                     <span class="check"></span>
                   </label>
                 </div>
                 <div class="input-wrapper">
                 <input type="number" placeholder="AGE" id="age" name="age" required>
                 <input type="number" placeholder="WEIGHT"id="weight" name="weight" required>
-                <select id="weightUnit">
-                  <option value="kg">Kilograms</option>
-                  <option value="lbs">Pounds</option>
-                </select>
                 <input type="float" placeholder="HEIGHT"id="height" name="height" required>
+                <div class="wunits">
+                  <select id="weightUnit">
+                    <option value="kg">Kilograms</option>
+                    <option value="lbs">Pounds</option>
+                  </select>
+                  </div>
                 <button type="submit" class="btn1">Calculate</button>
             </form>
             <div id="bmiResult"></div>
