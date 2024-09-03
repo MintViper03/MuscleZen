@@ -45,6 +45,7 @@ button {
   border-radius: 4px;
   cursor: pointer;
   width: 100%;
+  font-size: medium;
 }
 
 button:hover {
@@ -70,7 +71,7 @@ button:hover {
 }
 
 a {
-  color: #333;
+  color: #007bff;
   text-decoration: none;
 }
 
