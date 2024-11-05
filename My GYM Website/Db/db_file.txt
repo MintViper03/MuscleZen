@@ -1,0 +1,202 @@
+-- Create database
+CREATE DATABASE IF NOT EXISTS gym_db;
+
+-- Create users table
+USE gym_db;
+CREATE TABLE IF NOT EXISTS users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+INSERT INTO users (email, password) 
+VALUES ('test@example.com', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi');
+-- This creates a user with email: test@example.com and password: password
+
+CREATE TABLE IF NOT EXISTS users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    address TEXT,
+    dob DATE,
+    gender VARCHAR(10),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+select * from users;
+
+-- Drop the existing table if needed
+DROP TABLE IF EXISTS users;
+
+-- Create the users table with correct column names
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    address TEXT,
+    dob DATE,
+    gender VARCHAR(10),
+    terms_accepted TINYINT(1) DEFAULT 0,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Progress tracking tables
+
+-- Main progress table for weight and body fat
+CREATE TABLE IF NOT EXISTS progress (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    date DATE NOT NULL,
+    weight DECIMAL(5,2) NOT NULL,
+    body_fat DECIMAL(4,1),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    UNIQUE KEY unique_date_user (user_id, date)
+);
+
+-- Body measurements table
+CREATE TABLE IF NOT EXISTS measurements (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    date DATE NOT NULL,
+    chest DECIMAL(5,2),
+    waist DECIMAL(5,2),
+    hips DECIMAL(5,2),
+    biceps DECIMAL(5,2),
+    thighs DECIMAL(5,2),
+    calves DECIMAL(5,2),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    UNIQUE KEY unique_date_user (user_id, date)
+);
+
+-- Personal records table
+CREATE TABLE IF NOT EXISTS personal_records (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    exercise VARCHAR(100) NOT NULL,
+    value DECIMAL(7,2) NOT NULL,
+    unit VARCHAR(20) NOT NULL,
+    date DATE NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+-- Workouts tracking table
+CREATE TABLE IF NOT EXISTS workouts (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    workout_type VARCHAR(50) NOT NULL,
+    date DATE NOT NULL,
+    duration INT NOT NULL,
+    calories_burned INT,
+    notes TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+-- Create indexes for better performance
+CREATE INDEX idx_progress_user_date ON progress(user_id, date);
+CREATE INDEX idx_measurements_user_date ON measurements(user_id, date);
+CREATE INDEX idx_workouts_user_date ON workouts(user_id, date);
+
+-- Community related tables
+
+-- Posts table
+CREATE TABLE IF NOT EXISTS posts (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    content TEXT NOT NULL,
+    image_url VARCHAR(255),
+    video_url VARCHAR(255),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+-- Comments table
+CREATE TABLE IF NOT EXISTS comments (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    post_id INT NOT NULL,
+    content TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (post_id) REFERENCES posts(id) ON DELETE CASCADE
+);
+
+-- Likes table
+CREATE TABLE IF NOT EXISTS post_likes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    post_id INT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE KEY unique_like (user_id, post_id),
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (post_id) REFERENCES posts(id) ON DELETE CASCADE
+);
+
+-- Followers table
+CREATE TABLE IF NOT EXISTS followers (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    follower_id INT NOT NULL,
+    following_id INT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE KEY unique_follow (follower_id, following_id),
+    FOREIGN KEY (follower_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (following_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+-- Add indexes for better performance
+CREATE INDEX idx_posts_user ON posts(user_id);
+CREATE INDEX idx_comments_post ON comments(post_id);
+CREATE INDEX idx_comments_user ON comments(user_id);
+CREATE INDEX idx_likes_post ON post_likes(post_id);
+CREATE INDEX idx_likes_user ON post_likes(user_id);
+
+-- Additional tables for social features
+
+-- Notifications table
+CREATE TABLE IF NOT EXISTS notifications (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    type VARCHAR(50) NOT NULL, -- 'follow', 'like', 'comment'
+    reference_id INT NOT NULL,
+    reference_type VARCHAR(50) NOT NULL, -- 'user', 'post', 'comment'
+    read_status TINYINT(1) DEFAULT 0,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+-- User media table
+CREATE TABLE IF NOT EXISTS user_media (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    media_type VARCHAR(50) NOT NULL, -- 'image', 'video'
+    filename VARCHAR(255) NOT NULL,
+    original_filename VARCHAR(255) NOT NULL,
+    file_size INT NOT NULL,
+    mime_type VARCHAR(100) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+-- Post reports table
+CREATE TABLE IF NOT EXISTS post_reports (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    post_id INT NOT NULL,
+    reporter_id INT NOT NULL,
+    reason VARCHAR(255) NOT NULL,
+    status VARCHAR(50) DEFAULT 'pending', -- 'pending', 'reviewed', 'resolved'
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (post_id) REFERENCES posts(id) ON DELETE CASCADE,
+    FOREIGN KEY (reporter_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+-- Add indexes
+CREATE INDEX idx_notifications_user ON notifications(user_id);
+CREATE INDEX idx_notifications_read ON notifications(read_status);
+CREATE INDEX idx_user_media_user ON user_media(user_id);
+CREATE INDEX idx_post_reports_post ON post_reports(post_id);

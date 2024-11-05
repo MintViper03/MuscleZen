@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MuscleZen</title>
+    <!-- External CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="css/sidebar.css">
+    
+    <style>
+        /* Reset default margins and paddings */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background: #f4f6f9;
+        }
+
+        /* Container layout */
+        .page-container {
+            display: flex;
+            min-height: 100vh;
+            width: 100%;
+            position: relative;
+        }
+
+        /* Sidebar styles */
+        .sidebar {
+            background: linear-gradient(135deg, #1a1c29 0%, #2d3047 100%);
+            min-height: 100vh;
+            width: 250px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            transition: width 0.3s ease;
+            box-shadow: 4px 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Main content area */
+        .main-content {
+            flex: 1;
+            margin-left: 250px; /* Same as sidebar width */
+            min-height: 100vh;
+            padding: 0px;
+            transition: margin-left 0.3s ease;
+            background: #f4f6f9;
+        }
+
+        /* Collapsed state */
+        .sidebar.collapsed {
+            width: 70px;
+        }
+
+        .main-content.expanded {
+            margin-left: 70px;
+        }
+
+        /* Logo container */
+        .sidebar-logo {
+            padding: 20px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 10px;
+        }
+
+        .sidebar-logo img {
+            width: 40px;
+            height: 40px;
+            object-fit: contain;
+        }
+
+        .sidebar-logo h4 {
+            color: #fff;
+            font-size: 1.2rem;
+            margin-top: 10px;
+            transition: opacity 0.3s ease;
+        }
+
+        /* Navigation */
+        .nav {
+            padding: 0;
+            list-style: none;
+        }
+
+        .nav-link {
+            color: rgba(255, 255, 255, 0.8) !important;
+            padding: 12px 20px !important;
+            margin: 4px 10px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff !important;
+            transform: translateX(5px);
+        }
+
+        .nav-link.active {
+            background: linear-gradient(45deg, #3498db, #2980b9);
+            color: #fff !important;
+        }
+
+        .nav-link i {
+            width: 20px;
+            text-align: center;
+            margin-right: 10px;
+            font-size: 1.1rem;
+        }
+
+        .nav-link span {
+            transition: opacity 0.3s ease;
+        }
+
+        /* Collapsed state modifiers */
+        .sidebar.collapsed .sidebar-logo h4,
+        .sidebar.collapsed .nav-link span,
+        .sidebar.collapsed .sidebar-user-info {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .sidebar.collapsed .nav-link {
+            padding: 12px !important;
+            justify-content: center;
+        }
+
+        .sidebar.collapsed .nav-link i {
+            margin: 0;
+        }
+
+        /* User section */
+        .sidebar-user {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 250px;
+            padding: 15px;
+            ```html
+            background: rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            transition: width 0.3s ease;
+        }
+
+        .sidebar.collapsed .sidebar-user {
+            width: 70px;
+            justify-content: center;
+        }
+
+        .sidebar-user img {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .sidebar-user-info {
+            transition: opacity 0.3s ease;
+        }
+
+        .sidebar-user-info h6 {
+            color: #fff;
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        .sidebar-user-info span {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.8rem;
+        }
+
+        /* Toggle button */
+        .sidebar-toggle {
+            position: fixed;
+            bottom: 20px;
+            left: 250px;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: #2d3047;
+            border: none;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 1001;
+        }
+
+        .sidebar.collapsed .sidebar-toggle {
+            left: 70px;
+            transform: translateX(-50%) rotate(180deg);
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            .sidebar {
+                left: -250px;
+            }
+
+            .sidebar.active {
+                left: 0;
+            }
+
+            .main-content {
+                margin-left: 0;
+                width: 100%;
+            }
+
+            .sidebar-toggle {
+                left: 20px;
+                transform: none;
+            }
+
+            .sidebar.active .sidebar-toggle {
+                left: 250px;
+                transform: translateX(-50%);
+            }
+        }
+
+        .content-wrapper {
+            padding: 15px;
+            width: 100%;
+        }
+
+        /* Dashboard cards */
+        .dashboard-card {
+            background: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .dashboard-card h5 {
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        /* Progress bars */
+        .progress {
+            height: 8px;
+            margin-bottom: 10px;
+        }
+
+        .progress-bar {
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="page-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <!-- Logo -->
+            <div class="sidebar-logo">
+                <img src="images/Fitness logo V2.png" alt="MuscleZen Logo">
+                <h4>MuscleZen</h4>
+            </div>
+
+            <!-- Main Navigation -->
+            <div class="nav flex-column">
+                <a href="dashboard.html" class="nav-link" data-title="Dashboard">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="profile.html" class="nav-link" data-title="Your Profile">
+                    <i class="fas fa-user"></i>
+                    <span>Profile</span>
+                </a>
+                <a href="workouts.html" class="nav-link" data-title="Workout Plans">
+                    <i class="fas fa-dumbbell"></i>
+                    <span>Workouts</span>
+                </a>
+                <a href="schedule.html" class="nav-link" data-title="Training Schedule">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>Schedule</span>
+                </a>
+
+                <div class="sidebar-divider"></div>
+
+                <a href="progress.html" class="nav-link" data-title="Track Progress">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Progress</span>
+                </a>
+                <a href="nutrition.html" class="nav-link" data-title="Meal Planning">
+                    <i class="fas fa-utensils"></i>
+                    <span>Nutrition</span>
+                </a>
+                <a href="community.html" class="nav-link" data-title="Community Feed">
+                    <i class="fas fa-users"></i>
+                    <span>Community</span>
+                </a>
+
+                <div class="sidebar-divider"></div>
+
+                <a href="settings.html" class="nav-link" data-title="Account Settings">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </a>
+                <a href="#" class="nav-link" id="logout-link" data-title="Sign Out">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </a>
+            </div>
+
+            <!-- User Section -->
+            <div class="sidebar-user">
+                <img src="images/default-avatar.png" alt="Profile" id="sidebar-user-image">
+                <div class="sidebar-user-info">
+                    <h6 id="sidebar-username">Loading...</h6>
+                    <span>Member</span>
+                </div>
+            </div>
+
+            <!-- Sidebar Toggle Button -->
+            <button class="sidebar-toggle">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+        </div>
+
+        <!-- Main Content Container -->
+        <div class="main-content">
+            <!-- Your page content will be loaded here -->
+            <div id="content-container"></div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Check session
+            $.ajax({
+                url: 'php/check_session.php',
+                method: 'GET',
+                success: function(response) {
+                    if (!response.logged_in) {
+                        window.location.href = 'login.html';
+                    }
+                },
+                error: function() {
+                    window.location.href = 'login.html';
+                }
+            });
+
+            // Set active link
+            const currentPage = window.location.pathname.split("/").pop() || 'dashboard.html';
+            $(`.nav-link[href="${currentPage}"]`).addClass('active');
+
+            // Load user info
+            $.ajax({
+                url: 'php/get_profile.php',
+                method: 'GET',
+                success: function(response) {
+                    if (response.status === 'success') {
+                        $('#sidebar-username').text(response.data.username || "Guest"); // Fallback to "Guest"
+                        $('#sidebar-user-image').attr('src', response.data.profile_image || 'images/default-avatar.png'); // Default image if none
+                    }
+                }
+            });
+
+            // Sidebar toggle
+            $('.sidebar-toggle').click(function() {
+                $('.sidebar').toggleClass('collapsed');
+                $('.main-content').toggleClass('expanded');
+                
+                // Save state to localStorage
+                localStorage.setItem('sidebarCollapsed', $('.sidebar').hasClass('collapsed'));
+            });
+
+            // Load saved sidebar state
+            if(localStorage.getItem('sidebarCollapsed') === 'true') {
+                $('.sidebar').addClass('collapsed');
+                $('.main-content').addClass('expanded');
+            }
+
+            // Mobile responsiveness
+            function handleMobileView() {
+                if($(window).width() <= 768) {
+                    $('.nav-link').removeAttr('data-title');
+                    $('.sidebar').addClass('mobile');
+                } else {
+                    $('.nav-link').each(function() {
+                        $(this).attr('data-title', $(this).find('span').text());
+                    });
+                    $('.sidebar').removeClass('mobile');
+                }
+            }
+
+            // Initial mobile check
+            handleMobileView();
+
+            // Handle window resize
+            $(window).resize(function() {
+                handleMobileView();
+            });
+
+            // Close sidebar when clicking outside on mobile
+            $(document).click(function(event) {
+                if($(window).width() <= 768) {
+                    if(!$(event.target).closest('.sidebar, .sidebar-toggle').length) {
+                        $('.sidebar').removeClass('active');
+                    }
+                }
+            });
+
+            // Logout handler
+            $('#logout-link').click(function(e) {
+                e.preventDefault();
+                if(confirm('Are you sure you want to logout?')) {
+                    $.ajax({
+                        url: 'php/logout.php',
+                        method: 'POST',
+                        success: function() {
+                            window.location.href = 'login.html';
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
