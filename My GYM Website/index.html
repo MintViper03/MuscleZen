@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/font-awesome.min.css">
    <link rel="stylesheet" href="css/aos.css">
+   <link rel="stylesheet" href="css/navbar-custom.css">
+
     <!--main page css-->
     <link rel="stylesheet" href="css/main.css">
 </head>
@@ -47,22 +49,26 @@
                   <a href="#contact" class="nav-link smoothScroll">Contact</a>
               </li>
           </ul>
-          <ul class="navbar-nav ml-auto">
-              <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      Account
-                  </a>
-                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                      <a class="dropdown-item" href="login.html">Login</a>
-                      <a class="dropdown-item" href="signup.html">Sign up</a>
-                  </div>
-              </li>
-          </ul>
-          <ul class="social-icon ml-lg-3">
-              <li><a href="#" class="fa fa-facebook"></a></li>
-              <li><a href="" class="fa fa-twitter"></a></li>
-              <li><a href="" class="fa fa-instagram"></a></li>
-          </ul>
+        <ul class="navbar-nav ml-auto">
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-user account-icon"></i>Account
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="login.html">
+                <i class="fa fa-sign-in account-icon"></i>Member Login
+            </a>
+            <a class="dropdown-item" href="signup.html">
+                <i class="fa fa-user-plus account-icon"></i>Sign up
+            </a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item admin-link" href="admin/login.html">
+                <i class="fa fa-lock account-icon"></i>Admin Login
+            </a>
+        </div>
+    </li>
+</ul>
+
       </div>
   </div>
 </nav>
@@ -518,8 +524,7 @@
 
         <div class="modal-content">
           <div class="modal-header">
-
-            <h2 class="modal-title" id="membershipFormLabel">Membership Form</h2>
+            <h2 class="modal-title" id="membershipFormLabel">Enquiry Form</h2>
 
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>

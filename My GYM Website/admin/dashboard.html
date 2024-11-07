@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | MuscleZen</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body>
+    <div class="admin-container">
+        <!-- Admin Sidebar -->
+        <div class="admin-sidebar">
+            <div class="admin-logo">
+                <img src="../images/Fitness logo V2.png" alt="MuscleZen Admin">
+                <h4>Admin Panel</h4>
+            </div>
+            
+            <nav class="admin-nav">
+                <a href="dashboard.html" class="active">
+                    <i class="fas fa-tachometer-alt"></i> Dashboard
+                </a>
+                <a href="users.html">
+                    <i class="fas fa-users"></i> Users
+                </a>
+                <a href="workouts.html">
+                    <i class="fas fa-dumbbell"></i> Workouts
+                </a>
+                <a href="reports.html">
+                    <i class="fas fa-chart-bar"></i> Reports
+                </a>
+                <a href="content.html">
+                    <i class="fas fa-file-alt"></i> Content
+                </a>
+                <a href="settings.html">
+                    <i class="fas fa-cog"></i> Settings
+                </a>
+                <a href="#" id="admin-logout">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </a>
+            </nav>
+        </div>
+
+        <!-- Main Content -->
+        <div class="admin-main">
+            <div class="admin-header">
+                <div class="admin-search">
+                    <input type="text" placeholder="Search...">
+                    <i class="fas fa-search"></i>
+                </div>
+                <div class="admin-user">
+                    <span id="admin-username">Admin</span>
+                    <img src="../images/default-avatar.png" alt="Admin" id="admin-avatar">
+                </div>
+            </div>
+
+            <!-- Dashboard Content -->
+            <div class="admin-content">
+                <!-- Stats Cards -->
+                <div class="row stats-cards">
+                    <div class="col-md-3">
+                        <div class="stat-card">
+                            <div class="stat-icon bg-primary">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="stat-details">
+                                <h3 id="total-users">0</h3>
+                                <p>Total Users</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stat-card">
+                            <div class="stat-icon bg-success">
+                                <i class="fas fa-dumbbell"></i>
+                            </div>
+                            <div class="stat-details">
+                                <h3 id="total-workouts">0</h3>
+                                <p>Total Workouts</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stat-card">
+                            <div class="stat-icon bg-warning">
+                                <i class="fas fa-user-clock"></i>
+                            </div>
+                            <div class="stat-details">
+                                <h3 id="active-users">0</h3>
+                                <p>Active Users</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stat-card">
+                            <div class="stat-icon bg-danger">
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                            <div class="stat-details">
+                                <h3 id="reported-content">0</h3>
+                                <p>Reported Content</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="row mt-4">
+                    <div class="col-md-8">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5>Recent Activity</h5>
+                            </div>
+                            <div class="card-body">
+                                <div id="activity-log">
+                                    <!-- Activity logs will be loaded here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5>Quick Actions</h5>
+                            </div>
+                            <div class="card-body">
+                                <button class="btn btn-primary btn-block mb-2">
+                                    <i class="fas fa-user-plus"></i> Add New User
+                                </button>
+                                <button class="btn btn-success btn-block mb-2">
+                                    <i class="fas fa-plus"></i> Create Workout
+                                </button>
+                                <button class="btn btn-info btn-block mb-2">
+                                    <i class="fas fa-download"></i> Download Report
+                                </button>
+                                <button class="btn btn-warning btn-block">
+                                    <i class="fas fa-bell"></i> Send Notification
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html>

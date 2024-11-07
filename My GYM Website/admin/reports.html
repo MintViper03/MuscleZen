@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reports | MuscleZen Admin</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <link rel="stylesheet" href="../css/admin.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.css"
+    />
+  </head>
+  <body>
+    <div class="admin-container">
+      <!-- Admin Sidebar -->
+      <div class="admin-sidebar">
+        <div class="admin-logo">
+          <img src="../images/Fitness logo V2.png" alt="MuscleZen Admin" />
+          <h4>Admin Panel</h4>
+        </div>
+
+        <nav class="admin-nav">
+          <a href="dashboard.html">
+            <i class="fas fa-tachometer-alt"></i> Dashboard
+          </a>
+          <a href="users.html"> <i class="fas fa-users"></i> Users </a>
+          <a href="workouts.html"> <i class="fas fa-dumbbell"></i> Workouts </a>
+          <a href="reports.html" class="active">
+            <i class="fas fa-chart-bar"></i> Reports
+          </a>
+          <a href="content.html"> <i class="fas fa-file-alt"></i> Content </a>
+          <a href="settings.html"> <i class="fas fa-cog"></i> Settings </a>
+          <a href="#" id="admin-logout">
+            <i class="fas fa-sign-out-alt"></i> Logout
+          </a>
+        </nav>
+      </div>
+
+      <!-- Main Content -->
+      <div class="admin-main">
+        <div class="admin-header">
+          <div class="admin-search">
+            <input type="text" placeholder="Search reports..." />
+            <i class="fas fa-search"></i>
+          </div>
+          <div class="admin-user">
+            <span id="admin-username">Admin</span>
+            <img
+              src="../images/default-avatar.png"
+              alt="Admin"
+              id="admin-avatar"
+            />
+          </div>
+        </div>
+
+        <!-- Reports Content -->
+        <div class="admin-content">
+          <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>Analytics & Reports</h2>
+            <div class="btn-group">
+              <button class="btn btn-outline-primary" id="export-pdf">
+                <i class="fas fa-file-pdf"></i> Export PDF
+              </button>
+              <button class="btn btn-outline-success" id="export-excel">
+                <i class="fas fa-file-excel"></i> Export Excel
+              </button>
+            </div>
+          </div>
+
+          <!-- Date Range Filter -->
+          <div class="card mb-4">
+            <div class="card-body">
+              <div class="row align-items-center">
+                <div class="col-md-4">
+                  <div class="form-group mb-0">
+                    <label>Date Range</label>
+                    <select class="form-control" id="date-range">
+                      <option value="7">Last 7 days</option>
+                      <option value="30">Last 30 days</option>
+                      <option value="90">Last 3 months</option>
+                      <option value="365">Last year</option>
+                      <option value="custom">Custom Range</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-8" id="custom-range" style="display: none">
+                  <div class="row">
+                    <div class="col-md-5">
+                      <div class="form-group mb-0">
+                        <label>Start Date</label>
+                        <input
+                          type="date"
+                          class="form-control"
+                          id="start-date"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-5">
+                      <div class="form-group mb-0">
+                        <label>End Date</label>
+                        <input type="date" class="form-control" id="end-date" />
+                      </div>
+                    </div>
+                    <div class="col-md-2">
+                      <button class="btn btn-primary mt-4" id="apply-range">
+                        Apply
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Charts -->
+          <div class="row">
+            <div class="col-md-6">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">User Growth</h5>
+                  <canvas id="userGrowthChart"></canvas>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Workout Engagement</h5>
+                  <canvas id="workoutEngagementChart"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Statistics Table -->
+          <div class="card mt-4">
+            <div class="card-body">
+              <h5 class="card-title">Detailed Statistics</h5>
+              <div class="table-responsive">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>Metric</th>
+                      <th>Current Period</th>
+                      <th>Previous Period</th>
+                      <th>Change</th>
+                    </tr>
+                  </thead>
+                  <tbody id="stats-table-body">
+                    <!-- Statistics will be loaded here -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
+    <script src="js/admin.js"></script>
+    <script src="js/reports.js"></script>
+  </body>
+</html>

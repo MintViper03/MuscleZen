@@ -170,27 +170,82 @@
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script>
-      // Load sidebar
       $(document).ready(function () {
+        // Load sidebar
         $("#sidebar-placeholder").load("components/sidebar.html", function () {
-          // Highlight current page in sidebar
           $('.nav-link[href="profile.html"]').addClass("active");
         });
 
         // Load user data
-        $.ajax({
-          url: "php/get_profile.php",
-          method: "GET",
-          success: function (response) {
-            if (response.status === "success") {
-              $("#profile-name").text(response.data.username);
-              $("#profile-email").text(response.data.email);
-              $("#fullname").val(response.data.username);
-              $("#email").val(response.data.email);
-              $("#dob").val(response.data.dob);
-              $("#gender").val(response.data.gender);
-            }
-          },
+        function loadUserProfile() {
+          $.ajax({
+            url: "php/get_profile.php",
+            method: "GET",
+            success: function (response) {
+              if (response.status === "success") {
+                // Update text fields
+                $("#profile-name").text(response.data.username);
+                $("#profile-email").text(response.data.email);
+                $("#fullname").val(response.data.username);
+                $("#email").val(response.data.email);
+                $("#dob").val(response.data.dob);
+                $("#gender").val(response.data.gender);
+
+                // Update profile image
+                if (response.data.profile_image) {
+                  $("img.rounded-circle").attr(
+                    "src",
+                    response.data.profile_image
+                  );
+                }
+
+                // Update fitness goals
+                $("#primary-goal").val(response.data.primary_goal);
+                $("#target-weight").val(response.data.target_weight);
+                $("#weekly-workouts").val(response.data.weekly_workouts);
+              }
+            },
+          });
+        }
+
+        // Initial load
+        loadUserProfile();
+
+        // Handle profile photo upload
+        $("#upload-photo").click(function () {
+          var formData = new FormData();
+          var fileInput = $("#profile-photo")[0];
+
+          if (fileInput.files.length > 0) {
+            formData.append("profile_photo", fileInput.files[0]);
+
+            $.ajax({
+              url: "php/upload_profile_photo.php",
+              type: "POST",
+              data: formData,
+              processData: false,
+              contentType: false,
+              success: function (response) {
+                if (response.status === "success") {
+                  // Update profile image
+                  $("img.rounded-circle").attr("src", response.data.photo_url);
+                  // Close modal
+                  $("#updatePhotoModal").modal("hide");
+                  // Clear file input
+                  $("#profile-photo").val("");
+                  // Show success message
+                  alert("Profile photo updated successfully");
+                } else {
+                  alert(response.message);
+                }
+              },
+              error: function () {
+                alert("Error uploading photo");
+              },
+            });
+          } else {
+            alert("Please select a photo to upload");
+          }
         });
 
         // Handle profile update
@@ -207,6 +262,30 @@
             success: function (response) {
               if (response.status === "success") {
                 alert("Profile updated successfully");
+                loadUserProfile(); // Reload profile data
+              } else {
+                alert(response.message);
+              }
+            },
+          });
+        });
+
+        // Handle fitness goals update
+        $("#goals-form").on("submit", function (e) {
+          e.preventDefault();
+          $.ajax({
+            url: "php/update_goals.php",
+            method: "POST",
+            data: {
+              primary_goal: $("#primary-goal").val(),
+              target_weight: $("#target-weight").val(),
+              weekly_workouts: $("#weekly-workouts").val(),
+            },
+            success: function (response) {
+              if (response.status === "success") {
+                alert("Fitness goals updated successfully");
+              } else {
+                alert(response.message);
               }
             },
           });

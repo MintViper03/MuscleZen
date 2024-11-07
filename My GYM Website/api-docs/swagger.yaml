@@ -1,0 +1,80 @@
+openapi: 3.0.0
+info:
+  title: MuscleZen API
+  version: 1.0.0
+  description: API documentation for MuscleZen fitness tracking application
+
+servers:
+  - url: http://localhost
+    description: Local development server
+
+components:
+  securitySchemes:
+    SessionAuth:
+      type: apiKey
+      in: cookie
+      name: PHPSESSID
+  
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+        username:
+          type: string
+        email:
+          type: string
+        profile_image:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+
+paths:
+  /php/login.php:
+    post:
+      summary: User login
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  message:
+                    type: string
+                  user:
+                    $ref: '#/components/schemas/User'
+
+  /php/get_profile.php:
+    get:
+      summary: Get user profile
+      security:
+        - SessionAuth: []
+      responses:
+        '200':
+          description: Profile data
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  data:
+                    $ref: '#/components/schemas/User'

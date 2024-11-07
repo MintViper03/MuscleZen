@@ -1,0 +1,116 @@
+<?php
+session_start();
+header('Content-
+
+function optimizeDatabase($conn) {
+    $optimizeType: application/json');
+
+require_once 'admin_dbd = [];
+    
+    // Optimize all tables
+    $stmt_config.php';
+require_once '../middleware/AdminAuth.php';
+require_ = $conn->query("SHOW TABLES");
+    $tables = $stmt->fetchAll(PDO::FETCH_COLUMNonce '../utils/validation.php';
+
+try {
+    AdminAuth::requireAdmin();
+    $db = AdminDatabase::getInstance(););
+    
+    foreach ($tables as $table) {
+        
+    $conn = $db->getConnection();$conn->query("OPTIMIZE TABLE $table");
+
+    $action = $_POST['action'] ?? 'generate';
+    
+        $optimized['tables'][] = $table;
+    }
+    
+    // Update statistics
+    $conn->query("ANALYZE TABLE
+    switch ($action) {
+        case  " . implode(',', $tables));
+    
+    return $optimized;
+}
+
+function optimizeCache() {
+    $optimized = [];'generate':
+            $report = generateCustomReport($conn);
+            break;
+        case 'save':
+            $report = saveReportTemplate($conn);
+    
+    // Clear old cache files
+    $cache
+            break;
+        case 'load':Files = glob('../../cache/*');
+    foreach ($
+            $report = loadReportTemplate($conn);
+            break;
+        casecacheFiles as $file) {
+        if (filemtime($file) < str 'list':
+            $report = listReportTemplates($conn);
+            break;
+        default:
+            throw new Exception('Invalid action');
+    totime('-1 week')) {
+            unlink($file);
+            $optimized['cleared_files'][] = basename($file);
+        }}
+
+    echo json_encode([
+        'status
+    }
+    
+    return $optimized;' => 'success',
+        'data' => $report
+    ]);
+
+} catch (Exception $e) {
+    error
+}
+
+function cleanupFiles() {
+    $cleaned = [];
+    
+    // Clean old logs
+    $logFiles = glob('../../logs/*.log');
+    foreach ($logFiles as $file) {_log("Error in custom_reports: " . $e->getMessage());
+    echo json_encode([
+        'status' => 'error',
+        'message' => $
+        if (filemtime($file) < strtotime('-30e->getMessage()
+    ]);
+}
+
+function generateCustomReport($conn) { days')) {
+            unlink($file);
+            $cleaned['removed_logs'][] = basename($file);
+        }
+    }
+    
+    // Clean temp uploads
+    $reportConfig = json_decode($_POST['config'] ?? '{}', true);
+    $format = $_POST['format
+    $tempFiles = glob('../../uploads/temp/*');
+    foreach ($tempFiles as $file) {
+        if (fi'] ?? 'json';
+    
+    validateReportConfig($reportConfig);
+    
+    $data = [];
+    foreach ($reportConfig['sectionslemtime($file) < strtotime('-'] as $section) {
+        $data24 hours')) {
+            unlink($file[$section['name']] = executeReportQuery($conn,);
+            $cleaned['removed_temp'] $section);
+    }
+
+    // Log report generation
+    log[] = basename($file);
+        }ReportGeneration($conn, $reportConfig);
+    }
+    
+    return $cleaned;
+}
+?>

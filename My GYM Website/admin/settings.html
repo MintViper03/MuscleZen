@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Settings | MuscleZen Admin</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <link rel="stylesheet" href="../css/admin.css" />
+  </head>
+  <body>
+    <div class="admin-container">
+      <!-- Admin Sidebar -->
+      <div class="admin-sidebar">
+        <div class="admin-logo">
+          <img src="../images/Fitness logo V2.png" alt="MuscleZen Admin" />
+          <h4>Admin Panel</h4>
+        </div>
+
+        <nav class="admin-nav">
+          <a href="dashboard.html">
+            <i class="fas fa-tachometer-alt"></i> Dashboard
+          </a>
+          <a href="users.html"> <i class="fas fa-users"></i> Users </a>
+          <a href="workouts.html"> <i class="fas fa-dumbbell"></i> Workouts </a>
+          <a href="reports.html"> <i class="fas fa-chart-bar"></i> Reports </a>
+          <a href="content.html"> <i class="fas fa-file-alt"></i> Content </a>
+          <a href="settings.html" class="active">
+            <i class="fas fa-cog"></i> Settings
+          </a>
+          <a href="#" id="admin-logout">
+            <i class="fas fa-sign-out-alt"></i> Logout
+          </a>
+        </nav>
+      </div>
+
+      <!-- Main Content -->
+      <div class="admin-main">
+        <div class="admin-header">
+          <div class="admin-search">
+            <input type="text" placeholder="Search settings..." />
+            <i class="fas fa-search"></i>
+          </div>
+          <div class="admin-user">
+            <span id="admin-username">Admin</span>
+            <img
+              src="../images/default-avatar.png"
+              alt="Admin"
+              id="admin-avatar"
+            />
+          </div>
+        </div>
+
+        <!-- Settings Content -->
+        <div class="admin-content">
+          <h2 class="mb-4">System Settings</h2>
+
+          <!-- Settings Navigation -->
+          <div class="row">
+            <div class="col-md-3">
+              <div class="list-group">
+                <a
+                  href="#general"
+                  class="list-group-item list-group-item-action active"
+                >
+                  General Settings
+                </a>
+                <a
+                  href="#security"
+                  class="list-group-item list-group-item-action"
+                >
+                  Security Settings
+                </a>
+                <a href="#email" class="list-group-item list-group-item-action">
+                  Email Configuration
+                </a>
+                <a
+                  href="#backup"
+                  class="list-group-item list-group-item-action"
+                >
+                  Backup & Maintenance
+                </a>
+                <a href="#api" class="list-group-item list-group-item-action">
+                  API Settings
+                </a>
+              </div>
+            </div>
+            <div class="col-md-9">
+              <!-- General Settings -->
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">General Settings</h5>
+                  <form id="general-settings-form">
+                    <div class="form-group">
+                      <label>Site Name</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="smtp_username"
+                        autocomplete="username"
+                      />
+                    </div>
+                    <div class="form-group">
+                      <label>Site Description</label>
+                      <textarea
+                        class="form-control"
+                        name="site_description"
+                        rows="2"
+                      ></textarea>
+                    </div>
+                    <div class="form-group">
+                      <label>Time Zone</label>
+                      <select class="form-control" name="timezone">
+                        <option value="UTC">UTC</option>
+                        <option value="America/New_York">Eastern Time</option>
+                        <option value="America/Chicago">Central Time</option>
+                        <option value="America/Denver">Mountain Time</option>
+                        <option value="America/Los_Angeles">
+                          Pacific Time
+                        </option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label>Maintenance Mode</label>
+                      <div class="custom-control custom-switch">
+                        <input
+                          type="checkbox"
+                          class="custom-control-input"
+                          id="maintenance-mode"
+                        />
+                        <label
+                          class="custom-control-label"
+                          for="maintenance-mode"
+                          >Enable Maintenance Mode</label
+                        >
+                      </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                      Save General Settings
+                    </button>
+                  </form>
+                </div>
+              </div>
+
+              <!-- Security Settings -->
+              <div class="card mt-4">
+                <div class="card-body">
+                  <h5 class="card-title">Security Settings</h5>
+                  <form id="security-settings-form">
+                    <div class="form-group">
+                      <label>Session Timeout (minutes)</label>
+                      <input
+                        type="number"
+                        class="form-control"
+                        name="session_timeout"
+                        value="30"
+                      />
+                    </div>
+                    <div class="form-group">
+                      <label>Maximum Login Attempts</label>
+                      <input
+                        type="number"
+                        class="form-control"
+                        name="max_login_attempts"
+                        value="5"
+                      />
+                    </div>
+                    <div class="form-group">
+                      <label>Password Policy</label>
+                      <div class="custom-control custom-checkbox">
+                        <input
+                          type="checkbox"
+                          class="custom-control-input"
+                          id="require-uppercase"
+                        />
+                        <label
+                          class="custom-control-label"
+                          for="require-uppercase"
+                          >Require Uppercase Letters</label
+                        >
+                      </div>
+                      <div class="custom-control custom-checkbox">
+                        <input
+                          type="checkbox"
+                          class="custom-control-input"
+                          id="require-numbers"
+                        />
+                        <label
+                          class="custom-control-label"
+                          for="require-numbers"
+                          >Require Numbers</label
+                        >
+                      </div>
+                      <div class="custom-control custom-checkbox">
+                        <input
+                          type="checkbox"
+                          class="custom-control-input"
+                          id="require-special"
+                        />
+                        <label
+                          class="custom-control-label"
+                          for="require-special"
+                          >Require Special Characters</label
+                        >
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label>Two-Factor Authentication</label>
+                      <div class="custom-control custom-switch">
+                        <input
+                          type="checkbox"
+                          class="custom-control-input"
+                          id="two-factor-auth"
+                        />
+                        <label
+                          class="custom-control-label"
+                          for="two-factor-auth"
+                          >Enable Two-Factor Authentication</label
+                        >
+                      </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                      Save Security Settings
+                    </button>
+                  </form>
+                </div>
+              </div>
+
+              <!-- Email Configuration -->
+              <div class="card mt-4">
+                <div class="card-body">
+                  <h5 class="card-title">Email Configuration</h5>
+                  <form id="email-settings-form">
+                    <div class="form-group">
+                      <label>SMTP Host</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="smtp_host"
+                      />
+                    </div>
+                    <div class="form-group">
+                      <label>SMTP Port</label>
+                      <input
+                        type="number"
+                        class="form-control"
+                        name="smtp_port"
+                      />
+                    </div>
+                    <div class="form-group">
+                      <label>SMTP Username</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="smtp_username"
+                      />
+                    </div>
+                    <div class="form-group">
+                      <label>SMTP Password</label>
+                      <input
+                        type="password"
+                        class="form-control"
+                        name="smtp_password"
+                        autocomplete="current-password"
+                      />
+                    </div>
+                    <div class="form-group">
+                      <label>From Email</label>
+                      <input
+                        type="email"
+                        class="form-control"
+                        name="from_email"
+                      />
+                    </div>
+                    <div class="form-group">
+                      <label>From Name</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="from_name"
+                      />
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                      Save Email Settings
+                    </button>
+                    <button
+                      type="button"
+                      class="btn btn-secondary"
+                      id="test-email"
+                    >
+                      Test Email
+                    </button>
+                  </form>
+                </div>
+              </div>
+              <!-- Backup & Maintenance -->
+              <div class="card mt-4">
+                <div class="card-body">
+                  <h5 class="card-title">Backup & Maintenance</h5>
+                  <form id="backup-settings-form">
+                    <div class="form-group">
+                      <label>Automatic Backup</label>
+                      <div class="custom-control custom-switch">
+                        <input
+                          type="checkbox"
+                          class="custom-control-input"
+                          id="auto-backup"
+                        />
+                        <label class="custom-control-label" for="auto-backup"
+                          >Enable Automatic Backup</label
+                        >
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label>Backup Frequency</label>
+                      <select class="form-control" name="backup_frequency">
+                        <option value="daily">Daily</option>
+                        <option value="weekly">Weekly</option>
+                        <option value="monthly">Monthly</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label>Backup Storage Location</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        name="backup_location"
+                      />
+                    </div>
+                    <div class="form-group">
+                      <label>Keep Backups For</label>
+                      <select class="form-control" name="backup_retention">
+                        <option value="7">7 days</option>
+                        <option value="30">30 days</option>
+                        <option value="90">90 days</option>
+                        <option value="365">1 year</option>
+                      </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                      Save Backup Settings
+                    </button>
+                    <button
+                      type="button"
+                      class="btn btn-secondary"
+                      id="manual-backup"
+                    >
+                      Create Manual Backup
+                    </button>
+                  </form>
+                </div>
+              </div>
+
+              <!-- API Settings -->
+              <div class="card mt-4">
+                <div class="card-body">
+                  <h5 class="card-title">API Settings</h5>
+                  <form id="api-settings-form">
+                    <div class="form-group">
+                      <label>API Access</label>
+                      <div class="custom-control custom-switch">
+                        <input
+                          type="checkbox"
+                          class="custom-control-input"
+                          id="enable-api"
+                        />
+                        <label class="custom-control-label" for="enable-api"
+                          >Enable API Access</label
+                        >
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label>API Key</label>
+                      <div class="input-group">
+                        <input
+                          type="text"
+                          class="form-control"
+                          name="api_key"
+                          readonly
+                        />
+                        <div class="input-group-append">
+                          <button
+                            class="btn btn-outline-secondary"
+                            type="button"
+                            id="generate-api-key"
+                          >
+                            Generate New Key
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label>Rate Limiting</label>
+                      <input
+                        type="number"
+                        class="form-control"
+                        name="rate_limit"
+                        placeholder="Requests per minute"
+                      />
+                    </div>
+                    <div class="form-group">
+                      <label>Allowed Origins (CORS)</label>
+                      <textarea
+                        class="form-control"
+                        name="allowed_origins"
+                        rows="3"
+                        placeholder="Enter origins separated by newlines"
+                      ></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                      Save API Settings
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="js/admin.js"></script>
+    <script src="js/settings.js"></script>
+  </body>
+</html>
