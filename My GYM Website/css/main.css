@@ -265,14 +265,26 @@ a:focus {
   */
 
 .navbar {
-  background: var(--dark-color);
-  padding: 2rem;
-  max-width: 100%;
-  margin: auto auto;
-  align-items: center;
-  justify-content: space-between;
-}
+    background: rgba(23, 24, 25, 0.95); /* Slightly transparent dark background */
+    padding: 1rem 1rem;
+    border-radius: 20px; /* Rounded corners at bottom */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Hover effect shadow */
+    position: fixed;
+    width: 70%;
+    top: 0;
+    margin:10px auto;
+    z-index: 1000;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px); /* Adds a subtle blur effect */
+  }
 
+.navbar:hover {
+    background: rgba(23, 24, 25, 1);
+    transform: translateY(2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+  }
+  
+  
 .navbar-brand {
   color: var(--white-color);
   font-size: var(--h3-font-size);
@@ -295,7 +307,23 @@ a:focus {
   font-weight: var(--font-weight-normal);
   text-transform: uppercase;
   padding: 2px 6px;
-  transition: color 0.3s ease;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.nav-item .nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--primary-color);
+  transition: width 0.3s ease;
+}
+
+.nav-item .nav-link:hover::after {
+  width: 100%;
 }
 
 .nav-item .nav-link.active,
@@ -375,15 +403,16 @@ a:focus {
   */
 
 .hero {
-  background-image: url("../images/bg.jpg");
-  background-size: cover;
-  background-position: top;
-  background-repeat: no-repeat;
-  vertical-align: middle;
-  min-height: 100vh;
-  position: relative;
-  margin: 0px auto;
-}
+    background-image: url("../images/bg.jpg");
+    background-size: cover;
+    background-position: top;
+    background-repeat: no-repeat;
+    vertical-align: middle;
+    min-height: 100vh;
+    position: relative;
+    margin: -40px auto;
+    padding-top: 85px; /* Add padding to account for floating navbar */
+  }
 
 /*
      CLASS               
@@ -789,6 +818,19 @@ Button "Become A member today" section
 .bmi-cal-section {
   background-color: var(--about-bg-color);
   padding: 80px 0px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.8s ease;
+}
+
+.bmi-cal-section.aos-animate {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.bmi-cal-section.aos-animate {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .bmi-container {
@@ -804,7 +846,16 @@ Button "Become A member today" section
     rgba(0, 0, 0, 0.3) 0px 18px 26px -18px inset;*/
   position: relative;
   /*t ext-shadow: 2px 2px 4px #404040; /* Added text shadow */
+  transition: transform 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
 }
+
+.bmi-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
 .bmi-container input[type="number"],
 .bmi-container input[type="float"] {
   width: 50%;
