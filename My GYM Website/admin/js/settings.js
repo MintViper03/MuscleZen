@@ -1,37 +1,53 @@
 $(document).ready(function () {
-  // Load initial settings
   loadSettings();
 
-  // Handle settings form submissions
-  $("#general-settings-form").on("submit", function (e) {
+  // Form submissions
+  $("#general-settings-form").submit(function (e) {
     e.preventDefault();
-    saveSettings("general", $(this));
+    saveSettings("general", $(this).serialize());
   });
 
-  $("#security-settings-form").on("submit", function (e) {
+  $("#security-settings-form").submit(function (e) {
     e.preventDefault();
-    saveSettings("security", $(this));
+    saveSettings("security", $(this).serialize());
   });
 
-  // Settings navigation
-  $(".list-group-item").on("click", function (e) {
+  $("#email-settings-form").submit(function (e) {
     e.preventDefault();
-
-    // Update active state
-    $(".list-group-item").removeClass("active");
-    $(this).addClass("active");
-
-    // Show corresponding section
-    const targetId = $(this).attr("href");
-    $(".settings-section").hide();
-    $(targetId).show();
+    saveSettings("email", $(this).serialize());
   });
 
-  // Maintenance mode toggle handler
-  $("#maintenance-mode").on("change", function () {
-    if ($(this).is(":checked")) {
-      confirmMaintenanceMode();
-    }
+  $("#backup-settings-form").submit(function (e) {
+    e.preventDefault();
+    saveSettings("backup", $(this).serialize());
+  });
+
+  $("#api-settings-form").submit(function (e) {
+    e.preventDefault();
+    saveSettings("api", $(this).serialize());
+  });
+
+  // Test email button
+  $("#test-email").click(function () {
+    testEmailSettings();
+  });
+
+  // Manual backup button
+  $("#manual-backup").click(function () {
+    createManualBackup();
+  });
+
+  // Generate API key
+  $("#generate-api-key").click(function () {
+    generateApiKey();
+  });
+
+  // Navigation
+  $(".list-group-item").click(function (e) {
+    e.preventDefault();
+    $(this).addClass("active").siblings().removeClass("active");
+    const section = $(this).attr("href").substring(1);
+    showSection(section);
   });
 });
 
@@ -53,45 +69,52 @@ function loadSettings() {
 
 function populateSettings(settings) {
   // General Settings
-  $('input[name="site_name"]').val(settings.general.site_name);
-  $('textarea[name="site_description"]').val(settings.general.site_description);
-  $('select[name="timezone"]').val(settings.general.timezone);
+  $("#site-name").val(settings.general.site_name);
+  $("#site-description").val(settings.general.site_description);
+  $("#timezone").val(settings.general.timezone);
   $("#maintenance-mode").prop("checked", settings.general.maintenance_mode);
 
   // Security Settings
-  $('input[name="session_timeout"]').val(settings.security.session_timeout);
-  $('input[name="max_login_attempts"]').val(
-    settings.security.max_login_attempts
-  );
-  $("#require-uppercase").prop(
-    "checked",
-    settings.security.password_requirements.uppercase
-  );
-  $("#require-numbers").prop(
-    "checked",
-    settings.security.password_requirements.numbers
-  );
-  $("#require-special").prop(
-    "checked",
-    settings.security.password_requirements.special
-  );
+  $("#session-timeout").val(settings.security.session_timeout);
+  $("#max-login-attempts").val(settings.security.max_login_attempts);
+  $("#require-uppercase").prop("checked", settings.security.require_uppercase);
+  $("#require-numbers").prop("checked", settings.security.require_numbers);
+  $("#require-special").prop("checked", settings.security.require_special);
+  $("#two-factor-auth").prop("checked", settings.security.two_factor_auth);
+
+  // Email Settings
+  $("#smtp-host").val(settings.email.smtp_host);
+  $("#smtp-port").val(settings.email.smtp_port);
+  $("#smtp-username").val(settings.email.smtp_username);
+  $("#from-email").val(settings.email.from_email);
+  $("#from-name").val(settings.email.from_name);
+
+  // Backup Settings
+  $("#auto-backup").prop("checked", settings.backup.auto_backup);
+  $("#backup-frequency").val(settings.backup.frequency);
+  $("#backup-location").val(settings.backup.location);
+  $("#backup-retention").val(settings.backup.retention);
+
+  // API Settings
+  $("#enable-api").prop("checked", settings.api.enabled);
+  $("#api-key").val(settings.api.api_key);
+  $("#rate-limit").val(settings.api.rate_limit);
+  $("#allowed-origins").val(settings.api.allowed_origins);
 }
 
-function saveSettings(type, form) {
-  const formData = new FormData(form[0]);
-  formData.append("type", type);
-
+function saveSettings(type, data) {
   $.ajax({
     url: "../php/admin/save_settings.php",
     method: "POST",
-    data: formData,
-    processData: false,
-    contentType: false,
+    data: {
+      type: type,
+      settings: data,
+    },
     success: function (response) {
       if (response.status === "success") {
         showAlert("Settings saved successfully", "success");
       } else {
-        showAlert(response.message, "danger");
+        showAlert(response.message || "Error saving settings", "danger");
       }
     },
     error: function (xhr, status, error) {
@@ -101,62 +124,82 @@ function saveSettings(type, form) {
   });
 }
 
-function confirmMaintenanceMode() {
-  if (
-    confirm(
-      "Enabling maintenance mode will make the site inaccessible to regular users. Continue?"
-    )
-  ) {
-    // Additional confirmation for duration
-    const duration = prompt(
-      "Enter maintenance duration in minutes (leave empty for indefinite):",
-      "60"
-    );
+function testEmailSettings() {
+  const emailSettings = $("#email-settings-form").serialize();
 
-    if (duration !== null) {
-      enableMaintenanceMode(duration);
-    } else {
-      $("#maintenance-mode").prop("checked", false);
-    }
-  } else {
-    $("#maintenance-mode").prop("checked", false);
-  }
-}
-
-function enableMaintenanceMode(duration) {
   $.ajax({
-    url: "../php/admin/set_maintenance_mode.php",
+    url: "../php/admin/test_email.php",
     method: "POST",
-    data: {
-      enabled: true,
-      duration: duration,
-    },
+    data: emailSettings,
     success: function (response) {
       if (response.status === "success") {
-        showAlert("Maintenance mode enabled", "success");
+        showAlert("Test email sent successfully", "success");
       } else {
-        $("#maintenance-mode").prop("checked", false);
-        showAlert(response.message, "danger");
+        showAlert(response.message || "Error sending test email", "danger");
       }
     },
     error: function (xhr, status, error) {
-      console.error("Error setting maintenance mode:", error);
-      $("#maintenance-mode").prop("checked", false);
-      showAlert("Error enabling maintenance mode", "danger");
+      console.error("Error testing email:", error);
+      showAlert("Error sending test email", "danger");
     },
   });
 }
 
+function createManualBackup() {
+  $.ajax({
+    url: "../php/admin/manage_backup.php",
+    method: "POST",
+    data: { action: "create" },
+    success: function (response) {
+      if (response.status === "success") {
+        showAlert("Backup created successfully", "success");
+      } else {
+        showAlert(response.message || "Error creating backup", "danger");
+      }
+    },
+    error: function (xhr, status, error) {
+      console.error("Error creating backup:", error);
+      showAlert("Error creating backup", "danger");
+    },
+  });
+}
+
+function generateApiKey() {
+  $.ajax({
+    url: "../php/admin/generate_api_key.php",
+    method: "POST",
+    success: function (response) {
+      if (response.status === "success") {
+        $("#api-key").val(response.api_key);
+        showAlert("New API key generated", "success");
+      } else {
+        showAlert(response.message || "Error generating API key", "danger");
+      }
+    },
+    error: function (xhr, status, error) {
+      console.error("Error generating API key:", error);
+      showAlert("Error generating API key", "danger");
+    },
+  });
+}
+
+function showSection(section) {
+  $(".settings-section").hide();
+  $(`#${section}-settings`).show();
+}
+
 function showAlert(message, type) {
-  const alert = $(`
+  const alertHtml = `
         <div class="alert alert-${type} alert-dismissible fade show" role="alert">
             ${message}
             <button type="button" class="close" data-dismiss="alert">
                 <span>&times;</span>
             </button>
         </div>
-    `);
+    `;
 
-  $(".admin-content").prepend(alert);
-  setTimeout(() => alert.alert("close"), 5000);
+  $(".admin-content").prepend(alertHtml);
+  setTimeout(() => {
+    $(".alert").alert("close");
+  }, 5000);
 }

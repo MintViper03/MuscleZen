@@ -38,18 +38,7 @@
       <!-- Main Content -->
       <div class="admin-main">
         <div class="admin-header">
-          <div class="admin-search">
-            <input type="text" placeholder="Search..." />
-            <i class="fas fa-search"></i>
-          </div>
-          <div class="admin-user">
-            <span id="admin-username">Admin</span>
-            <img
-              src="../images/default-avatar.png"
-              alt="Admin"
-              id="admin-avatar"
-            />
-          </div>
+          <!-- ... (keep existing header) ... -->
         </div>
 
         <!-- Dashboard Content -->
@@ -80,6 +69,17 @@
             </div>
             <div class="col-md-3">
               <div class="stat-card">
+                <div class="stat-icon bg-info">
+                  <i class="fas fa-envelope"></i>
+                </div>
+                <div class="stat-details">
+                  <h3 id="new-enquiries">0</h3>
+                  <p>New Enquiries</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="stat-card">
                 <div class="stat-icon bg-warning">
                   <i class="fas fa-user-clock"></i>
                 </div>
@@ -89,20 +89,9 @@
                 </div>
               </div>
             </div>
-            <div class="col-md-3">
-              <div class="stat-card">
-                <div class="stat-icon bg-danger">
-                  <i class="fas fa-exclamation-triangle"></i>
-                </div>
-                <div class="stat-details">
-                  <h3 id="reported-content">0</h3>
-                  <p>Reported Content</p>
-                </div>
-              </div>
-            </div>
           </div>
 
-          <!-- Recent Activity -->
+          <!-- Recent Activity and Quick Actions -->
           <div class="row mt-4">
             <div class="col-md-8">
               <div class="card">
@@ -119,19 +108,48 @@
             <div class="col-md-4">
               <div class="card">
                 <div class="card-header">
+                  <h5>Latest Enquiries</h5>
+                </div>
+                <div class="card-body">
+                  <div id="latest-enquiries">
+                    <!-- Latest enquiries will be loaded here -->
+                  </div>
+                  <button
+                    class="btn btn-primary btn-block mt-3"
+                    id="view-all-enquiries"
+                  >
+                    View All Enquiries
+                  </button>
+                </div>
+              </div>
+              <!-- Existing Quick Actions card -->
+              <div class="card mt-4">
+                <div class="card-header">
                   <h5>Quick Actions</h5>
                 </div>
                 <div class="card-body">
-                  <button class="btn btn-primary btn-block mb-2">
+                  <button
+                    class="btn btn-primary btn-block mb-2"
+                    id="add-new-user-btn"
+                  >
                     <i class="fas fa-user-plus"></i> Add New User
                   </button>
-                  <button class="btn btn-success btn-block mb-2">
+                  <button
+                    class="btn btn-success btn-block mb-2"
+                    id="create-workout-btn"
+                  >
                     <i class="fas fa-plus"></i> Create Workout
                   </button>
-                  <button class="btn btn-info btn-block mb-2">
+                  <button
+                    class="btn btn-info btn-block mb-2"
+                    id="download-report-btn"
+                  >
                     <i class="fas fa-download"></i> Download Report
                   </button>
-                  <button class="btn btn-warning btn-block">
+                  <button
+                    class="btn btn-warning btn-block"
+                    id="send-notification-btn"
+                  >
                     <i class="fas fa-bell"></i> Send Notification
                   </button>
                 </div>
@@ -141,9 +159,12 @@
         </div>
       </div>
     </div>
+<!-- Keep everything the same but update the scripts section at the bottom -->
 
+    <!-- Scripts -->
     <script src="../js/jquery.min.js"></script>
     <script src="../js/bootstrap.min.js"></script>
     <script src="js/admin.js"></script>
-  </body>
+    <script src="js/dashboard.js"></script>  <!-- Add this line -->
+</body>
 </html>

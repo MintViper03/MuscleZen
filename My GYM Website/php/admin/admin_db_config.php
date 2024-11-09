@@ -27,22 +27,20 @@ class AdminDatabase {
         }
 
         try {
-            // First verify the MySQL server is accessible
+            // Connect directly to the database
             $this->conn = new PDO(
-                "mysql:host={$this->host}",
+                "mysql:host={$this->host};dbname={$this->dbName};charset=utf8mb4",
                 $this->dbUsername,
                 $this->dbPassword,
                 [
                     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
                     PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+                    PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8mb4",
                     PDO::ATTR_TIMEOUT => 5 // 5 seconds timeout
                 ]
             );
 
-            // Check if database exists
-            $this->conn->query("USE {$this->dbName}");
-
-            // Check if admin tables exist
+            // Check if admin tables exist and create them if needed
             $this->checkAndCreateAdminTables();
 
         } catch(PDOException $e) {
@@ -95,6 +93,23 @@ class AdminDatabase {
                 )
             ");
 
+            // Create workouts table
+            $this->conn->exec("
+                CREATE TABLE IF NOT EXISTS workouts (
+                    id INT AUTO_INCREMENT PRIMARY KEY,
+                    name VARCHAR(100) NOT NULL,
+                    description TEXT,
+                    category VARCHAR(20) NOT NULL,
+                    difficulty VARCHAR(20) NOT NULL,
+                    duration INT NOT NULL,
+                    calories_burn INT,
+                    status VARCHAR(20) DEFAULT 'active',
+                    created_by INT,
+                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+                )
+            ");
+
             // Insert default admin user if none exists
             $stmt = $this->conn->query("SELECT COUNT(*) as count FROM admin_users");
             $result = $stmt->fetch();
@@ -144,12 +159,5 @@ class AdminDatabase {
     private function __wakeup() {}
 }
 
-// Return database connection
-try {
-    $adminDb = AdminDatabase::getInstance();
-    return $adminDb->getConnection();
-} catch(Exception $e) {
-    error_log("Admin Database Error: " . $e->getMessage());
-    throw new Exception('Admin Database connection failed');
-}
+// Do not return anything here - let the class handle everything
 ?>

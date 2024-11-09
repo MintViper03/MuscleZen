@@ -1,57 +1,51 @@
 <?php
 session_start();
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 header('Content-Type: application/json');
 
-if (!isset($_SESSION['admin_id'])) {
-    echo json_encode(['status' => 'error', 'message' => 'Not authorized']);
-    exit;
-}
-
-require_once '../db_config.php';
+require_once 'admin_db_config.php';
 
 try {
-    $stats = [];
-    
-    // Get total users
-    $stmt = $conn->query("SELECT COUNT(*) as count FROM users");
-    $stats['total_users'] = $stmt->fetch(PDO::FETCH_ASSOC)['count'];
-    
-    // Get active users (last 24 hours)
-    $stmt = $conn->query("
-        SELECT COUNT(*) as count 
-        FROM users 
-        WHERE last_login >= DATE_SUB(NOW(), INTERVAL 24 HOUR)
-    ");
-    $stats['active_users'] = $stmt->fetch(PDO::FETCH_ASSOC)['count'];
-    
-    // Get total workouts
-    $stmt = $conn->query("SELECT COUNT(*) as count FROM workout_plans");
-    $stats['total_workouts'] = $stmt->fetch(PDO::FETCH_ASSOC)['count'];
-    
-    // Get reported content
-    $stmt = $conn->query("
-        SELECT COUNT(*) as count 
-        FROM post_reports 
-        WHERE status = 'pending'
-    ");
-    $stats['reported_content'] = $stmt->fetch(PDO::FETCH_ASSOC)['count'];
-    
-    // Get recent registrations
-    $stmt = $conn->query("
-        SELECT COUNT(*) as count 
-        FROM users 
-        WHERE created_at >= DATE_SUB(NOW(), INTERVAL 7 DAY)
-    ");
-    $stats['new_users_week'] = $stmt->fetch(PDO::FETCH_ASSOC)['count'];
+    $db = AdminDatabase::getInstance();
+    $conn = $db->getConnection();
+
+    // Get enquiries count
+    $newEnquiries = $conn->query("
+        SELECT COUNT(*) FROM enquiries WHERE status = 'new'
+    ")->fetchColumn();
+
+    // Get other stats with error handling
+    $stats = [
+        'total_users' => 0,
+        'total_workouts' => 0,
+        'active_users' => 0,
+        'new_enquiries' => $newEnquiries
+    ];
+
+    // Try to get users count if table exists
+    try {
+        $stats['total_users'] = $conn->query("SELECT COUNT(*) FROM users")->fetchColumn();
+    } catch (Exception $e) {
+        error_log("Error getting users count: " . $e->getMessage());
+    }
+
+    // Try to get workouts count if table exists
+    try {
+        $stats['total_workouts'] = $conn->query("SELECT COUNT(*) FROM workouts")->fetchColumn();
+    } catch (Exception $e) {
+        error_log("Error getting workouts count: " . $e->getMessage());
+    }
 
     echo json_encode([
         'status' => 'success',
         'data' => $stats
     ]);
-} catch(Exception $e) {
+
+} catch (Exception $e) {
+    error_log("Error in get_dashboard_stats: " . $e->getMessage());
     echo json_encode([
         'status' => 'error',
-        'message' => 'Error fetching dashboard stats'
+        'message' => $e->getMessage()
     ]);
 }
-?>
