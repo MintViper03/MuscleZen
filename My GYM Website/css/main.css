@@ -485,110 +485,140 @@ a:focus {
      SCHEDULE             
   */
 
+/* SCHEDULE SECTION */
 .schedule {
   background: var(--dark-color);
+  padding: 7rem 0;
 }
 
+.schedule .container {
+  padding: 0 15px;
+}
+
+/* Table Responsive Wrapper */
+.table-responsive {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary-color) rgba(255,255,255,0.1);
+}
+
+/* Main Table Styles */
 .schedule-table {
-  display: table;
+  width: 100%;
+  min-width: 800px;
+  margin-bottom: 0;
+  background-color: transparent;
+  border-collapse: separate;
+  border-spacing: 0 5px;
+}
+
+/* Table Header */
+.schedule-table thead th {
   border: 0;
+  border-bottom: 2px solid var(--primary-color);
+  padding: 15px;
   text-align: center;
-}
-
-.schedule-table strong,
-.schedule-table span {
-  display: block;
-  text-align: center;
-}
-
-.schedule-table strong {
+  background-color: rgba(255,255,255,0.05);
   color: var(--white-color);
-}
-
-.schedule-table span {
-  color: var(--gray-color);
-}
-
-.schedule-table span,
-.schedule-table small {
-  font-size: var(--menu-font-size);
+  font-weight: bold;
   text-transform: uppercase;
 }
 
-.schedule-table small {
-  position: relative;
-  top: 10px;
+/* Table Body */
+.schedule-table tbody td {
+  padding: 20px 15px;
+  text-align: center;
+  border: 0;
+  background-color: rgba(255,255,255,0.03);
+  transition: all 0.3s ease;
 }
 
-.table .thead-light th,
-.schedule-table tr td:first-child {
-  background: var(--primary-color);
-  border: 1px solid #212122;
+/* Time Column */
+.schedule-table td:first-child {
+  background-color: var(--primary-color);
+  border-radius: 5px 0 0 5px;
   color: var(--white-color);
+  font-weight: bold;
 }
 
-.schedule-table .thead-light th {
-  border-bottom: 0;
-  text-transform: uppercase;
-}
-
-.table-bordered td,
-.table-bordered th {
-  border: 1px solid #212122;
-}
-
-.table-bordered td {
-  padding-bottom: 22px;
-}
-
-.table td,
-.table th {
-  padding: 1rem;
-}
-
-/*
-      ABOUT & TEAM            
-  */
-
-.about {
-  background: var(--about-bg-color);
-}
-
-.about-working-hours {
-  border-left: 2px solid;
-  padding-left: 3.5rem;
-}
-
-.about-working-hours strong {
-  color: var(--white-color);
-  opacity: 0.85;
-}
-
-.team-thumb {
-  position: relative;
-}
-
-.team-info {
-  background: var(--white-color);
-  border-radius: 0 0 2px 2px;
-  box-shadow: 6px 0 38px rgba(20, 20, 20, 0.1);
-  padding: 20px;
-  position: relative;
-}
-
-.team-info span {
-  font-weight: var(--font-weight-light);
-  opacity: 0.85;
-}
-
-.team-info .social-icon {
-  position: absolute;
-  top: 10px;
-  right: 20px;
-}
-
-.team-info .social-icon li {
+/* Class Details */
+.schedule-table td strong {
   display: block;
+  color: var(--white-color);
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+.schedule-table td span {
+  display: block;
+  color: rgba(255,255,255,0.6);
+  font-size: 14px;
+}
+
+/* Empty Cells */
+.schedule-table td:empty {
+  background-color: rgba(255,255,255,0.01);
+}
+
+/* Scrollbar Styling */
+.table-responsive::-webkit-scrollbar {
+  height: 6px;
+}
+
+.table-responsive::-webkit-scrollbar-track {
+  background: rgba(255,255,255,0.1);
+}
+
+.table-responsive::-webkit-scrollbar-thumb {
+  background-color: var(--primary-color);
+  border-radius: 3px;
+}
+
+/* Hover Effects */
+.schedule-table tbody tr:hover td:not(:first-child) {
+  background-color: rgba(255,255,255,0.05);
+}
+
+/* Mobile Optimizations */
+@media screen and (max-width: 992px) {
+  .schedule-table td strong {
+      font-size: 14px;
+  }
+  
+  .schedule-table td span {
+      font-size: 12px;
+  }
+  
+  .schedule-table td {
+      padding: 15px 10px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .table-responsive {
+      margin: 0 -15px;
+      width: calc(100% + 30px);
+      padding: 0 15px;
+  }
+  
+  .schedule-table {
+      min-width: 700px;
+  }
+  
+  /* Scroll Indicator */
+  .table-responsive::after {
+      content: '← Swipe →';
+      position: absolute;
+      bottom: -25px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: var(--white-color);
+      font-size: 14px;
+      opacity: 0.7;
+  }
 }
 
 /*
@@ -719,21 +749,21 @@ button#submit-button:hover {
   }
 }
 
-@media screen and (max-width: 767px) {
-  h1 {
-    font-size: 38px;
+@media screen and (max-width: 768px) {
+  .bmi-container {
+      margin: 0 20px;
+      padding: 30px 20px;
   }
-
-  .about-working-hours {
-    border-left: 0;
-    padding: 22px 0 0 0;
+  
+  .input-wrapper {
+      grid-template-columns: 1fr;
   }
-
-  .contact h2 span {
-    display: block;
+  
+  .radio-input {
+      flex-direction: column;
+      align-items: center;
   }
 }
-
 /*
 Button "Become A member today" section
 */
@@ -816,283 +846,250 @@ Button "Become A member today" section
 */
 
 .bmi-cal-section {
-  background-color: var(--about-bg-color);
-  padding: 80px 0px;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: all 0.8s ease;
-}
-
-.bmi-cal-section.aos-animate {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.bmi-cal-section.aos-animate {
-  opacity: 1;
-  transform: translateY(0);
+  background: var(--dark-color);
+  padding: 100px 0;
+  position: relative;
 }
 
 .bmi-container {
-  max-width: 100%;
-  margin: auto;
-  padding: 30px;
-  border: 1px solid #ccc; /* Added border style */
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
   text-align: center;
-  font-family: inherit;
-  color: r; /* This line changes the text color to white */
-  background: #f2f2f2;
-  /*box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 50px -12px inset,
-    rgba(0, 0, 0, 0.3) 0px 18px 26px -18px inset;*/
-  position: relative;
-  /*t ext-shadow: 2px 2px 4px #404040; /* Added text shadow */
   transition: transform 0.3s ease;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  border-radius: 15px;
 }
 
-.bmi-container:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+.bmi-container h1 {
+  color: var(--dark-color);
+  margin-bottom: 30px;
+  font-weight: var(--font-weight-bold);
 }
 
-.bmi-container input[type="number"],
-.bmi-container input[type="float"] {
-  width: 50%;
-  max-width: auto; /* Adjust width to fit within container */
-  padding: 10px; /* Add padding for better appearance */
-  margin: 5px 0; /* Space out input fields vertically */
-  border: 1px solid var(--dark-color); /* Light border color for inputs */
-  border-radius: 3px; /* Rounded corners for inputs */
-}
-
-.bmi-container input[type="radio"] {
-  margin-right: 5px; /* Space between radio button and label */
-}
-
-.bmi-container label {
-  display: block; /* Make labels block elements to align with inputs */
-  margin-top: 10px; /* Space above each label */
-  font-size: 20px; /* Font size for labels */
-}
-
-label {
-  display: block;
-  margin: 10px 0 10px;
-}
-
-input[type="number"],
-input[type="float"] {
+.wunits {
+  display: flex;
+  justify-content: center;
+  margin: 20px auto;
   width: 100%;
-  padding: 8px;
-  margin-bottom: 10px;
 }
 
-.radio-input .label input {
-  display: none;
-  margin: 0px auto;
-  align-items: center;
+#weightUnit {
+    width: 50%;
+    padding: 15px;
+    font-size: 1rem;
+    border: 2px solid #eee;
+    border-radius: 10px;
+    color: var(--dark-color);
+    background-color: var(--white-color);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1em;
+    padding-right: 2.5em;
 }
 
+#weightUnit:hover {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 10px rgba(241, 58, 17, 0.1);
+}
+
+#weightUnit:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 10px rgba(241, 58, 17, 0.2);
+}
+
+/* Style the dropdown options */
+#weightUnit option {
+    padding: 15px;
+    font-size: 1rem;
+    background-color: var(--white-color);
+    color: var(--dark-color);
+}
+
+/* For Firefox */
+#weightUnit:-moz-focusring {
+    color: transparent;
+    text-shadow: 0 0 0 var(--dark-color);
+}
+
+/* For IE/Edge */
+#weightUnit::-ms-expand {
+    display: none;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
+    #weightUnit {
+        width: 80%;
+    }
+}
+/* Radio Input Container */
 .radio-input {
-  display: flex;
-  gap: 40px;
-  display: inline-flex;
-}
-
-.radio-input .label {
-  display: flex;
-  align-items: center;
-}
-
-.radio-input .label .check {
-  width: 30px;
-  height: 30px;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 100%;
-  cursor: pointer;
-  transition: 0.3s;
-  border: 3px solid transparent;
-  box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5),
-    -1px -1px 4px rgba(255, 255, 255, 0.5);
-  margin: 0px auto;
-  max-width: 0% auto;
+  gap: 40px;
+  margin: 20px 0;
 }
 
+/* Label Styling */
+.radio-input .label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  color: var(--dark-color);
+  font-size: 18px;
+}
+
+/* Hide Default Radio Button */
+.radio-input .label input {
+  display: none;
+}
+
+/* Custom Radio Button */
+.radio-input .label .check {
+  width: 25px;
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  border: 2px solid #ddd;
+  transition: all 0.3s ease;
+  position: relative;
+  padding: 5px;
+}
+
+/* Radio Button Checked State */
 .radio-input .label input:checked + .check {
   transform: scale(1.1);
-  border-color: white;
-  background-color: #f03a11;
-  box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5),
-    -1px -1px 4px rgba(255, 255, 255, 0.5);
+  border-color: var(--primary-color);
+  background-color: var(--primary-color);
 }
 
-.input-wrapper input {
-  background-color: #eee;
-  border: none;
-  padding: 1rem;
-  font-size: 1rem;
-  width: 13em;
-  border-radius: 1rem;
-  color: var(--primary-color);
-  box-shadow: 0 0.4rem #d3cdcd;
-  cursor: pointer;
-}
-
-.input-wrapper input:focus {
-  outline-color: var(--primary-color);
-}
-
-/* BMI CAlculate Button */
-.btn1 {
-  --color: var(--primary-color);
-  font-family: inherit;
-  display:table;
-  width: 8em;
-  height: 2.6em;
-  line-height: 2.5em;
-  position: relative;
-  cursor: pointer;
-  overflow: hidden;
-  border: 2px solid var(--color);
-  transition: color 0.5s;
-  z-index: 1;
-  font-size: 17px;
-  border-radius: 6px;
-  font-weight: 500;
-  color: var(--color);
-  margin-left: 46%;
-
-.btn1:before {
-  content: "";
+/* Inner Circle for Checked State */
+.radio-input .label input:checked + .check::before {
+  content: '';
   position: absolute;
-  z-index: -1;
-  background: var(--color);
-  height: 150px;
-  width: 200px;
+  width: 12px;
+  height: 12px;
+  background: white;
   border-radius: 50%;
 }
 
-.btn1:hover {
-  color: #fff;
+/* Text Spacing */
+.label span {
+  margin-left: 8px;
 }
 
-.btn1:before {
-  top: 100%;
-  left: 100%;
-  transition: all 0.7s;
-}
-
-.btn1:hover:before {
-  top: -30px;
-  left: -30px;
-}
-
-.btn1:active:before {
+.btn1 {
   background: var(--primary-color);
-  transition: background 1s;
+  color: var(--white-color);
+  border: none;
+  padding: 15px 40px;
+  font-size: 18px;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin: 0px auto; /* Centers the button */
+  display: inline-block; /* Changed from block to inline-block */
+  width: auto;
+  position: relative; /* Remove absolute positioning */
+  left: 0; /* Remove left positioning */
+  margin-left: 0; /* Remove margin-left */
 }
 
-.weightUnit{
-  margin: 20px;
-  padding: 20%;
+.button-container {
+  text-align: center;
+  width: 100%;
+  margin-top: 20px;
+}
 
+.btn1:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(241, 58, 17, 0.2);
 }
 
 #bmiResult {
-  margin-top: 15px;
+  margin-top: 20px;
+  padding: 20px;
+  border-radius: 10px;
+  background: #f8f9fa;
+  color: var(--dark-color);
+  font-size: 18px;
+  font-weight: var(--font-weight-bold);
+}
+
+#weightUnit {
+  padding: 12px;
+  border-radius: 8px;
+  border: 2px solid #eee;
+  font-size: 16px;
+  color: var(--dark-color);
+  background: var(--white-color);
+  margin-top: 10px;
+  cursor: pointer;
 }
 
 
-
-/*chatbot Section*/
-/* 
 .chatbot-container {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  width: 300px;
-  background-color: #f7f7f7;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  padding: 20px;
+  width: min(350px, 90vw); /* Responsive width */
+  max-height: 500px;
+  background-color: #fff;
+  border-radius: 15px;
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
   z-index: 1000;
+  display: flex;
+  flex-direction: column;
 }
 
 .chatbot-header {
-  background-color: #333;
+  background-color: var(--primary-color);
   color: #fff;
-  padding: 10px;
-  border-bottom: 1px solid #333;
+  padding: 15px 20px;
+  border-radius: 15px 15px 0 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
+.chatbot-header h2 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
 .chatbot-close {
-  font-size: 18px;
-  cursor: pointer;
-}
-
-.chatbot-conversation {
-  padding: 20px;
-}
-
-.chatbot-messages {
-  padding: 10px;
-}
-
-.chatbot-input {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-}
-
-.chatbot-send {
-  background-color: #333;
-  color: #fff;
-  padding: 10px 20px;
+  background: transparent;
   border: none;
-  border-radius: 10px;
+  color: #fff;
+  font-size: 1.5rem;
   cursor: pointer;
+  padding: 0;
+  line-height: 1;
+  transition: transform 0.3s ease;
 }
 
-.chatbot-send:hover {
-  background-color: #444;
-} */
-
-/* Small devices (tablets, 768px and up) */
-@media (min-width: 768px) {
-  .navbar-expand-lg .navbar-nav .nav-link {
-    padding-right: 1.5rem;
-    padding-left: 1.5rem;
-  }
-
-  .navbar-collapse {
-    display: flex !important;
-    align-items: center;
-  }
-
-  .navbar-toggler {
-    display: none;
-  }
+.chatbot-close:hover {
+  transform: rotate(90deg);
 }
+©
+.chatbot-conversation {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  
 
-/* Medium devices (desktops, 992px and up) */
-@media (min-width: 992px) {
-  .navbar-expand-lg {
-    flex-wrap: nowrap;
-  }
 
-  .navbar-expand-lg .navbar-nav {
-    flex-direction: row;
-  }
-
-  .navbar-expand-lg .navbar-nav .nav-link {
-    padding-right: 1.5rem;
-    padding-left: 1.5rem;
-  }
-}
