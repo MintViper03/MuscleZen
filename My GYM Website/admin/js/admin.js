@@ -8,21 +8,33 @@ $(document).ready(function () {
   // Load activity log
   loadActivityLog();
 
-  // Admin logout handler
-  $("#admin-logout").click(function (e) {
+  // Logout handler - Remove the nested $(document).ready
+  $("#admin-logout").on("click", function (e) {
     e.preventDefault();
+    console.log("Logout clicked"); // Debug log
+
     if (confirm("Are you sure you want to logout?")) {
       $.ajax({
         url: "../php/admin/logout.php",
         method: "POST",
+        dataType: "json",
         success: function (response) {
+          console.log("Logout response:", response); // Debug log
           if (response.status === "success") {
-            window.location.href = "login.html";
+            window.location.href = "../index.html";
+          } else {
+            console.error("Logout failed:", response.message);
           }
+        },
+        error: function (xhr, status, error) {
+          console.error("Logout error:", error);
+          window.location.href = "../index.html";
         },
       });
     }
   });
+
+  // Rest of your code...
 });
 
 function checkAdminSession() {
@@ -31,7 +43,7 @@ function checkAdminSession() {
     method: "GET",
     success: function (response) {
       if (!response.logged_in) {
-        window.location.href = "login.html";
+        window.location.href = "../index.html"; // Changed from login.html to ../index.html
       } else {
         $("#admin-username").text(response.username);
         if (response.avatar) {
@@ -40,7 +52,7 @@ function checkAdminSession() {
       }
     },
     error: function () {
-      window.location.href = "login.html";
+      window.location.href = "../index.html"; // Changed from login.html to ../index.html
     },
   });
 }
