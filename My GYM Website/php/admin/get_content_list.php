@@ -1,93 +1,77 @@
 <?php
 session_start();
+error_reporting(E_ALL);
+ini_set('display_errors', 0);
 header('Content-Type: application/json');
 
 require_once 'admin_db_config.php';
 require_once '../middleware/AdminAuth.php';
 
 try {
-    AdminAuth::requireAdmin();
+    if (!isset($_SESSION['admin_id'])) {
+        throw new Exception('Unauthorized access');
+    }
+
     $db = AdminDatabase::getInstance();
     $conn = $db->getConnection();
 
-    $type = $_GET['type'] ?? 'posts';
-    $page = max(1, intval($_GET['page'] ?? 1));
-    $limit = 10;
-    $offset = ($page - 1) * $limit;
+    // Get parameters
+    $type = isset($_GET['type']) ? $_GET['type'] : null;
+    $search = isset($_GET['search']) ? $_GET['search'] : '';
+    $reported = isset($_GET['reported']) ? true : false;
+    $contentId = isset($_GET['id']) ? (int)$_GET['id'] : null;
 
-    $content = [];
-    $total = 0;
+    // Base query
+    $query = "
+        SELECT 
+            c.*,
+            u.username as author_name
+        FROM content c
+        LEFT JOIN users u ON c.author_id = u.id
+        WHERE 1=1
+    ";
+    $params = [];
 
-    switch ($type) {
-        case 'posts':
-            $stmt = $conn->prepare("
-                SELECT p.*, u.username as author
-                FROM posts p
-                JOIN users u ON p.user_id = u.id
-                ORDER BY p.created_at DESC
-                LIMIT :offset, :limit
-            ");
-            $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
-            $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
-            $stmt->execute();
-            $content = $stmt->fetchAll();
+    // Add filters
+    if ($contentId) {
+        $query .= " AND c.id = :content_id";
+        $params['content_id'] = $contentId;
+    }
 
-            $total = $conn->query("SELECT COUNT(*) FROM posts")->fetchColumn();
-            break;
+    if ($type) {
+        $query .= " AND c.type = :type";
+        $params['type'] = $type;
+    }
 
-        case 'videos':
-            $stmt = $conn->prepare("
-                SELECT m.*, u.username as author
-                FROM user_media m
-                JOIN users u ON m.user_id = u.id
-                WHERE m.media_type = 'video'
-                ORDER BY m.created_at DESC
-                LIMIT :offset, :limit
-            ");
-            $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
-            $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
-            $stmt->execute();
-            $content = $stmt->fetchAll();
+    if ($reported) {
+        $query .= " AND c.is_reported = 1";
+    }
 
-            $total = $conn->query("
-                SELECT COUNT(*) FROM user_media WHERE media_type = 'video'
-            ")->fetchColumn();
-            break;
+    if ($search) {
+        $query .= " AND (c.title LIKE :search OR c.content LIKE :search)";
+        $params['search'] = "%$search%";
+    }
 
-        case 'images':
-            $stmt = $conn->prepare("
-                SELECT m.*, u.username as author
-                FROM user_media m
-                JOIN users u ON m.user_id = u.id
-                WHERE m.media_type = 'image'
-                ORDER BY m.created_at DESC
-                LIMIT :offset, :limit
-            ");
-            $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
-            $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
-            $stmt->execute();
-            $content = $stmt->fetchAll();
+    $query .= " ORDER BY c.created_at DESC";
 
-            $total = $conn->query("
-                SELECT COUNT(*) FROM user_media WHERE media_type = 'image'
-            ")->fetchColumn();
-            break;
+    $stmt = $conn->prepare($query);
+    $stmt->execute($params);
+    $content = $contentId ? $stmt->fetch(PDO::FETCH_ASSOC) : $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    if ($contentId && !$content) {
+        throw new Exception('Content not found');
     }
 
     echo json_encode([
         'status' => 'success',
-        'data' => [
-            'items' => $content,
-            'total' => $total,
-            'pages' => ceil($total / $limit),
-            'current_page' => $page
-        ]
+        'data' => $content
     ]);
 
 } catch (Exception $e) {
     error_log("Error in get_content_list: " . $e->getMessage());
+    http_response_code(500);
     echo json_encode([
         'status' => 'error',
-        'message' => 'Failed to load content list'
+        'message' => 'Error loading content: ' . $e->getMessage()
     ]);
 }

@@ -1,78 +1,66 @@
 <?php
-require_once '../middleware/AdminAuth.php';
-AdminAuth::requireAdmin();
-
+session_start();
+error_reporting(E_ALL);
+ini_set('display_errors', 0);
 header('Content-Type: application/json');
-require_once '../db_config.php';
+
+require_once 'admin_db_config.php';
 
 try {
-    $limit = isset($_GET['limit']) ? (int)$_GET['limit'] : 10;
-    $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-    $offset = ($page - 1) * $limit;
+    if (!isset($_SESSION['admin_id'])) {
+        throw new Exception('Unauthorized access');
+    }
 
-    // Get total count
-    $countStmt = $conn->query("SELECT COUNT(*) FROM admin_activity_log");
-    $totalActivities = $countStmt->fetchColumn();
+    $db = AdminDatabase::getInstance();
+    $conn = $db->getConnection();
 
-    // Get activities with admin user info
-    $stmt = $conn->prepare("
+    // Create activity log table if it doesn't exist
+    $conn->exec("
+        CREATE TABLE IF NOT EXISTS admin_activity_log (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            admin_id INT,
+            action VARCHAR(50) NOT NULL,
+            details TEXT,
+            ip_address VARCHAR(45),
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )
+    ");
+
+    // Get recent activities
+    $query = "
         SELECT 
             al.*,
-            au.username as admin_username
+            COALESCE(u.username, 'System') as admin_name
         FROM admin_activity_log al
-        JOIN admin_users au ON al.admin_id = au.id
+        LEFT JOIN users u ON al.admin_id = u.id
         ORDER BY al.created_at DESC
-        LIMIT ? OFFSET ?
-    ");
-    
-    $stmt->execute([$limit, $offset]);
-    $activities = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        LIMIT 10
+    ";
+
+    $activities = $conn->query($query)->fetchAll(PDO::FETCH_ASSOC);
 
     // Format activities for display
     $formattedActivities = array_map(function($activity) {
         return [
             'id' => $activity['id'],
-            'type' => explode('_', $activity['action'])[0],
-            'description' => formatActivityDescription($activity),
-            'admin' => $activity['admin_username'],
+            'type' => $activity['action'],
+            'details' => $activity['details'],
+            'admin_name' => $activity['admin_name'],
+            'ip_address' => $activity['ip_address'],
             'created_at' => $activity['created_at']
         ];
     }, $activities);
 
     echo json_encode([
         'status' => 'success',
-        'data' => $formattedActivities,
-        'pagination' => [
-            'current_page' => $page,
-            'total_pages' => ceil($totalActivities / $limit),
-            'total_entries' => $totalActivities
-        ]
+        'data' => $formattedActivities
     ]);
-} catch(Exception $e) {
+
+} catch (Exception $e) {
+    error_log("Error in get_activity_log: " . $e->getMessage());
+    http_response_code(500);
     echo json_encode([
         'status' => 'error',
-        'message' => 'Error fetching activity log: ' . $e->getMessage()
+        'message' => $e->getMessage()
     ]);
 }
-
-function formatActivityDescription($activity) {
-    $admin = $activity['admin_username'];
-    $action = $activity['action'];
-    $details = $activity['details'];
-
-    switch($action) {
-        case 'login':
-            return "Admin $admin logged in";
-        case 'logout':
-            return "Admin $admin logged out";
-        case 'add_user':
-            return "Admin $admin added a new user";
-        case 'update_user':
-            return "Admin $admin updated user information";
-        case 'delete_user':
-            return "Admin $admin deleted a user";
-        default:
-            return $details ?: "Admin $admin performed $action";
-    }
-}
-?>

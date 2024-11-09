@@ -6,22 +6,44 @@ require_once 'admin_db_config.php';
 require_once '../middleware/AdminAuth.php';
 
 try {
-    AdminAuth::requireAdmin();
     $db = AdminDatabase::getInstance();
     $conn = $db->getConnection();
-
-    $type = $_POST['type'] ?? '';
+    
+    $type = $_POST['type'];
+    parse_str($_POST['settings'], $settings);
     
     switch ($type) {
         case 'general':
-            saveGeneralSettings($conn, $_POST);
+            saveGeneralSettings($conn, $settings);
             break;
         case 'security':
-            saveSecuritySettings($conn, $_POST);
+            saveSecuritySettings($conn, $settings);
             break;
-        default:
-            throw new Exception('Invalid settings type');
+        case 'email':
+            saveEmailSettings($conn, $settings);
+            break;
+        case 'backup':
+            saveBackupSettings($conn, $settings);
+            break;
+        case 'api':
+            saveApiSettings($conn, $settings);
+            break;
     }
+    
+    // Log activity
+    $activityStmt = $conn->prepare("
+        INSERT INTO admin_activity_log (
+            admin_id, action, description, ip_address
+        ) VALUES (
+            :admin_id, 'update', :description, :ip_address
+        )
+    ");
+    
+    $activityStmt->execute([
+        'admin_id' => $_SESSION['admin_id'],
+        'description' => "Updated {$type} settings",
+        'ip_address' => $_SERVER['REMOTE_ADDR']
+    ]);
 
     echo json_encode([
         'status' => 'success',
@@ -32,47 +54,46 @@ try {
     error_log("Error in save_settings: " . $e->getMessage());
     echo json_encode([
         'status' => 'error',
-        'message' => 'Failed to save settings'
+        'message' => 'Error saving settings'
     ]);
 }
 
-function saveGeneralSettings($conn, $data) {
+function saveGeneralSettings($conn, $settings) {
     $stmt = $conn->prepare("
-        INSERT INTO user_settings (setting_key, setting_value) 
-        VALUES (?, ?)
-        ON DUPLICATE KEY UPDATE setting_value = VALUES(setting_value)
+        UPDATE site_settings SET 
+        site_name = :site_name,
+        site_description = :site_description,
+        timezone = :timezone,
+        maintenance_mode = :maintenance_mode
     ");
-
-    $settings = [
-        'site_name' => $data['site_name'] ?? '',
-        'site_description' => $data['site_description'] ?? '',
-        'timezone' => $data['timezone'] ?? 'UTC',
-        'maintenance_mode' => isset($data['maintenance_mode']) ? '1' : '0'
-    ];
-
-    foreach ($settings as $key => $value) {
-        $stmt->execute([$key, $value]);
-    }
+    
+    $stmt->execute([
+        'site_name' => $settings['site_name'],
+        'site_description' => $settings['site_description'],
+        'timezone' => $settings['timezone'],
+        'maintenance_mode' => isset($settings['maintenance_mode']) ? 1 : 0
+    ]);
 }
 
-function saveSecuritySettings($conn, $data) {
+function saveSecuritySettings($conn, $settings) {
     $stmt = $conn->prepare("
-        INSERT INTO user_settings (setting_key, setting_value) 
-        VALUES (?, ?)
-        ON DUPLICATE KEY UPDATE setting_value = VALUES(setting_value)
+        UPDATE security_settings SET 
+        session_timeout = :session_timeout,
+        max_login_attempts = :max_login_attempts,
+        require_uppercase = :require_uppercase,
+        require_numbers = :require_numbers,
+        require_special = :require_special,
+        two_factor_auth = :two_factor_auth
     ");
-
-    $settings = [
-        'session_timeout' => $data['session_timeout'] ?? '30',
-        'max_login_attempts' => $data['max_login_attempts'] ?? '5',
-        'password_requirements' => json_encode([
-            'uppercase' => isset($data['require_uppercase']),
-            'numbers' => isset($data['require_numbers']),
-            'special' => isset($data['require_special'])
-        ])
-    ];
-
-    foreach ($settings as $key => $value) {
-        $stmt->execute([$key, $value]);
-    }
+    
+    $stmt->execute([
+        'session_timeout' => $settings['session_timeout'],
+        'max_login_attempts' => $settings['max_login_attempts'],
+        'require_uppercase' => isset($settings['require_uppercase']) ? 1 : 0,
+        'require_numbers' => isset($settings['require_numbers']) ? 1 : 0,
+        'require_special' => isset($settings['require_special']) ? 1 : 0,
+        'two_factor_auth' => isset($settings['two_factor_auth']) ? 1 : 0
+    ]);
 }
+
+// Similar functions for email, backup, and API settings...

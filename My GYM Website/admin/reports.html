@@ -10,10 +10,25 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
     />
     <link rel="stylesheet" href="../css/admin.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.css"
-    />
+    <!-- Add Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
+    <style>
+      .chart-container {
+        position: relative;
+        height: 300px;
+        width: 100%;
+        margin-bottom: 20px;
+      }
+      .statistics-table th {
+        width: 25%;
+      }
+      .date-range-container {
+        display: none;
+      }
+      .date-range-container.show {
+        display: block;
+      }
+    </style>
   </head>
   <body>
     <div class="admin-container">
@@ -75,9 +90,9 @@
           <!-- Date Range Filter -->
           <div class="card mb-4">
             <div class="card-body">
-              <div class="row align-items-center">
+              <div class="row">
                 <div class="col-md-4">
-                  <div class="form-group mb-0">
+                  <div class="form-group">
                     <label>Date Range</label>
                     <select class="form-control" id="date-range">
                       <option value="7">Last 7 days</option>
@@ -88,10 +103,10 @@
                     </select>
                   </div>
                 </div>
-                <div class="col-md-8" id="custom-range" style="display: none">
+                <div class="col-md-8 date-range-container" id="custom-range">
                   <div class="row">
                     <div class="col-md-5">
-                      <div class="form-group mb-0">
+                      <div class="form-group">
                         <label>Start Date</label>
                         <input
                           type="date"
@@ -101,7 +116,7 @@
                       </div>
                     </div>
                     <div class="col-md-5">
-                      <div class="form-group mb-0">
+                      <div class="form-group">
                         <label>End Date</label>
                         <input type="date" class="form-control" id="end-date" />
                       </div>
@@ -123,7 +138,9 @@
               <div class="card">
                 <div class="card-body">
                   <h5 class="card-title">User Growth</h5>
-                  <canvas id="userGrowthChart"></canvas>
+                  <div class="chart-container">
+                    <canvas id="userGrowthChart"></canvas>
+                  </div>
                 </div>
               </div>
             </div>
@@ -131,7 +148,9 @@
               <div class="card">
                 <div class="card-body">
                   <h5 class="card-title">Workout Engagement</h5>
-                  <canvas id="workoutEngagementChart"></canvas>
+                  <div class="chart-container">
+                    <canvas id="workoutEngagementChart"></canvas>
+                  </div>
                 </div>
               </div>
             </div>
@@ -142,7 +161,7 @@
             <div class="card-body">
               <h5 class="card-title">Detailed Statistics</h5>
               <div class="table-responsive">
-                <table class="table table-hover">
+                <table class="table table-hover statistics-table">
                   <thead>
                     <tr>
                       <th>Metric</th>
@@ -164,7 +183,6 @@
 
     <script src="../js/jquery.min.js"></script>
     <script src="../js/bootstrap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
     <script src="js/admin.js"></script>
     <script src="js/reports.js"></script>
   </body>
