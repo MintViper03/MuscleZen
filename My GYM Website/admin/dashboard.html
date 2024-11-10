@@ -38,8 +38,41 @@
       <!-- Main Content -->
       <div class="admin-main">
         <div class="admin-header">
-          <!-- ... (keep existing header) ... -->
+          <div class="admin-header-left">
+            <div class="search-bar">
+              <input type="text" placeholder="Search..." id="admin-search" />
+              <i class="fas fa-search"></i>
+            </div>
+          </div>
+          <div class="admin-header-right">
+            <div class="admin-notifications">
+              <i class="fas fa-bell"></i>
+              <span class="badge badge-danger" id="notification-count">0</span>
+            </div>
+            <div class="admin-profile">
+              <img
+                src="../images/default-avatar.png"
+                alt="Admin"
+                id="admin-avatar"
+              />
+              <span id="admin-name">Admin</span>
+              <div class="admin-dropdown">
+                <i class="fas fa-chevron-down"></i>
+                <div class="dropdown-menu">
+                  <a href="settings.html"
+                    ><i class="fas fa-cog"></i> Settings</a
+                  >
+                  <a href="profile.html"><i class="fas fa-user"></i> Profile</a>
+                  <a href="#" id="admin-logout"
+                    ><i class="fas fa-sign-out-alt"></i> Logout</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+
+        <!-- Rest of your dashboard content... -->
 
         <!-- Dashboard Content -->
         <div class="admin-content">
@@ -159,12 +192,13 @@
         </div>
       </div>
     </div>
-<!-- Keep everything the same but update the scripts section at the bottom -->
+    <!-- Keep everything the same but update the scripts section at the bottom -->
 
     <!-- Scripts -->
     <script src="../js/jquery.min.js"></script>
     <script src="../js/bootstrap.min.js"></script>
     <script src="js/admin.js"></script>
-    <script src="js/dashboard.js"></script>  <!-- Add this line -->
-</body>
+    <script src="js/dashboard.js"></script>
+    <!-- Add this line -->
+  </body>
 </html>

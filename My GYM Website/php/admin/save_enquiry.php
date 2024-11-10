@@ -23,13 +23,10 @@ try {
         )
     ");
 
-    // Log received data for debugging
-    error_log("Received POST data: " . print_r($_POST, true));
-
     // Validate and sanitize input
     $name = trim(strip_tags($_POST['cf-name'] ?? ''));
     $email = filter_var(trim($_POST['cf-email'] ?? ''), FILTER_SANITIZE_EMAIL);
-    $phone = trim(strip_tags($_POST['cf-phone'] ?? ''));
+    $phone = preg_replace('/[^0-9]/', '', $_POST['cf-phone'] ?? ''); // Keep only numbers
     $message = trim(strip_tags($_POST['cf-message'] ?? ''));
 
     // Validation
@@ -39,6 +36,14 @@ try {
     if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
         throw new Exception('Valid email is required');
     }
+    
+    // Validate Indian phone number
+    if (empty($phone) || !preg_match('/^[6-9]\d{9}$/', $phone)) {
+        throw new Exception('Valid Indian mobile number is required (10 digits starting with 6-9)');
+    }
+
+    // Format phone number for display (XXX-XXX-XXXX)
+    $formattedPhone = substr($phone, 0, 3) . '-' . substr($phone, 3, 3) . '-' . substr($phone, 6);
 
     // Begin transaction
     $conn->beginTransaction();
@@ -52,7 +57,7 @@ try {
     $stmt->execute([
         'name' => $name,
         'email' => $email,
-        'phone' => $phone,
+        'phone' => $formattedPhone,
         'message' => $message
     ]);
 
@@ -73,7 +78,7 @@ try {
         )
     ");
 
-    $details = "New enquiry received from {$name} ({$email})";
+    $details = "New enquiry received from {$name} ({$formattedPhone})";
     $stmt->execute([
         'details' => $details,
         'ip_address' => $_SERVER['REMOTE_ADDR']
@@ -81,9 +86,6 @@ try {
 
     // Commit transaction
     $conn->commit();
-
-    // Log success for debugging
-    error_log("Successfully saved enquiry with ID: " . $enquiryId);
 
     echo json_encode([
         'status' => 'success',

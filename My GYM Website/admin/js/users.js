@@ -384,3 +384,4 @@ function updateShowingEntries(pagination) {
   $("#showing-end").text(end);
   $("#total-entries").text(pagination.total);
 }
+

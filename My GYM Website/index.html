@@ -542,22 +542,35 @@
             </button>
           </div>
 
-          <div class="modal-body">
-<form class="membership-form webform" role="form">
-    <input type="text" class="form-control" name="cf-name" placeholder="Name" required>
-    <input type="email" class="form-control" name="cf-email" placeholder="Email" required>
-    <input type="tel" class="form-control" name="cf-phone" placeholder="Mobile number" pattern="[6-9][0-9]{9}" title="Please enter valid Indian mobile number" maxlength="10" required>
-    <textarea class="form-control" rows="3" name="cf-message" placeholder="Additional Message"></textarea>
-    <button type="submit" class="form-control" id="submit-button" name="submit">Submit</button>
-    <div class="custom-control custom-checkbox">
-        <input type="checkbox" class="custom-control-input" id="signup-agree" required>
-        <label class="custom-control-label text-small text-muted" for="signup-agree">
-            I agree to the <a href="#">Terms &amp;Conditions</a>
-        </label>
-    </div>
-</form>
+         <!-- Replace the existing membership form modal content with this -->
+<div class="modal-body">
+    <form class="membership-form webform" role="form">
+        <input type="text" class="form-control" name="cf-name" placeholder="Name" required>
+        <input type="email" class="form-control" name="cf-email" placeholder="Email" required>
+       <!-- Replace the phone input in your membership form with this -->
+<input 
+    type="tel" 
+    class="form-control" 
+    name="cf-phone" 
+    maxlength="10"
+    minlength="10"
+    placeholder="Enter 10 digit mobile number"
+    pattern="[6-9][0-9]{9}"
+    title="Please enter a valid 10-digit Indian mobile number starting with 6, 7, 8, or 9"
+    required
+>
 
-          </div>
+        <textarea class="form-control" rows="3" name="cf-message" placeholder="Additional Message"></textarea>
+        <button type="submit" class="form-control" id="submit-button" name="submit">Submit</button>
+        <div class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input" id="signup-agree" required>
+            <label class="custom-control-label text-small text-muted" for="signup-agree">
+                I agree to the <a href="#">Terms &amp;Conditions</a>
+            </label>
+        </div>
+    </form>
+</div>
+
 
           <div class="modal-footer"></div>
 
