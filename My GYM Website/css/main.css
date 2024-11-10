@@ -481,6 +481,37 @@ a:focus {
   text-align: center;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Adding drop shadow for .class-price */
 }
+
+/* Opening Hours Section Styling */
+.about-working-hours h2.text-white {
+  color: var(--white-color);
+}
+
+.about-working-hours strong.d-block {
+  color: rgba(255, 255, 255, 0.85);  /* Same color as the time text */
+}
+
+.about-working-hours p {
+  color: rgba(255, 255, 255, 0.85);  /* Same color as the time text */
+  margin-bottom: 0;
+}
+
+/* Feature section paragraph styling */
+.feature p {
+  color: rgba(255, 255, 255, 0.75); /* Graying whitish color with some transparency */
+}
+
+.feature p a {
+  color: var(--primary-color); /* Keep the link color as is */
+  transition: color 0.3s ease;
+}
+
+.feature p a:hover {
+  color: #fff; /* White color on hover */
+}
+
+
+
 /*
      SCHEDULE             
   */
